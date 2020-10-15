@@ -1,0 +1,10 @@
+.wrapperFooter {
+  background-color: #3c3c3c !important;
+  color: #fff !important;
+  top: auto !important;
+  bottom: 0;
+  @media (max-width: 960px) {
+    position: sticky !important;
+    bottom: auto;
+  }
+}

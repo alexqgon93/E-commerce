@@ -13,7 +13,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import React from 'react';
 import { AppBar } from '@material-ui/core';
-import useStyles from './CustomAppBarStyles';
+import useStyles from './headerStyles';
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();

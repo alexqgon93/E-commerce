@@ -1,0 +1,25 @@
+{
+    "login": {
+        "getAll": "/users",
+        "getUserById": "/users/{id}",
+        "register": "/users/add",
+        "upateUser": "/users/update/{id}",
+        "deleteUser": "/users/delete/{id}"
+    },
+    "categories": {
+        "getAll": "/categories",
+        "getCategoryById": "/categories/{id}"
+    },
+    "products": {
+        "getAll": "/products",
+        "getProductById": "/products/{id}"
+    },
+    "cart": {
+        "getAll": "/cart",
+        "getCartById": "/cart/{id}"
+    },
+    "roles": {
+        "getRoles": "/roles",
+        "getRoleById": "/roles/{id}"
+    }
+}

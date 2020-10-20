@@ -23,3 +23,5 @@ const post = async <T>(
     body: params,
   }).then<T>((response) => response.json());
 };
+
+export { get, post };

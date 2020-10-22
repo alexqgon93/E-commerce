@@ -1,25 +1,58 @@
+import { CircularProgress } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import { useQuery } from 'react-query';
-import { Categories } from '../components/types';
+import { Categories, Products } from '../components/types';
 import { getAllCategories } from '../services/categories.service';
-import Button from '@material-ui/core/Button';
+import { getAllProducts } from '../services/products.service';
 
 const Dashboard = (): ReactElement => {
-  const { refetch: fetchGetAllCategories } = useQuery<Categories>('getAllCategories', async () => getAllCategories());
-  const handleGetCategories = async (): Promise<void> => {
-    try {
-      const getAllCategories = await fetchGetAllCategories();
-      console.log(getAllCategories);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    isLoading: loadingCategories,
+    isError: errorCategories,
+    data: dataCategories,
+    error: errorMessageCategories,
+  } = useQuery<Array<Categories>>('getAllCategories', async () => getAllCategories());
+  const {
+    isLoading: loadingProducts,
+    isError: errorProducts,
+    data: dataProducts,
+    error: errorMessageProducts,
+  } = useQuery<Array<Products>>('getAllCategories', async () => getAllProducts());
+
+  if (loadingCategories || loadingProducts) {
+    return <CircularProgress />;
+  }
+
+  if (errorCategories || errorProducts) {
+    return <span>Error: {errorMessageCategories || errorMessageProducts}</span>;
+  }
+
+  if (dataCategories && dataProducts) {
+    return (
+      <div>
+        <h1>Sección de Categorias</h1>
+        {dataCategories.map((todo) => (
+          <dl key={todo.id}>
+            <dt>{todo.name}</dt>
+            <dd>{todo.description}</dd>
+          </dl>
+        ))}
+        <h1>Seccion de Productos</h1>
+        {console.log(dataProducts)}
+        {dataProducts.map((item) => (
+          <dl key={item.id}>
+            <dt>{item.name}</dt>
+            <dd>{item.description}</dd>
+          </dl>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1>Pagina de bienvenida</h1>
-      <Button variant="contained" onClick={handleGetCategories}>
-        Click and get All Categories
-      </Button>
+      <h1>There is nothing to show</h1>
     </div>
   );
 };

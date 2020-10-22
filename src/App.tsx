@@ -3,7 +3,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Categories from './pages/Categories';
-import Products from './pages/Products';
+import Products from './pages/ProductsPage';
 import Cart from './pages/Cart';
 import AdminPanel from './pages/AdminPanel';
 import LayoutContext from './components/core/context/layoutContext/layoutContext';

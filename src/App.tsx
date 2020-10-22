@@ -8,18 +8,26 @@ import Cart from './pages/Cart';
 import AdminPanel from './pages/AdminPanel';
 import LayoutContext from './components/core/context/layoutContext/layoutContext';
 import MainLayout from './components/core/mainlayout/MainLayout';
+import { ReactQueryConfigProvider } from 'react-query';
 
 function App() {
+  const reactQueryConfig = {
+    queries: {
+      retry: false,
+    },
+  };
   return (
-    <Routes basename="/">
-      <Route path="/" element={LayoutContext(MainLayout)}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/categories" element={<Categories />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/adminpanel" element={<AdminPanel />} />
-      </Route>
-    </Routes>
+    <ReactQueryConfigProvider config={reactQueryConfig}>
+      <Routes basename="/">
+        <Route path="/" element={LayoutContext(MainLayout)}>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/adminpanel" element={<AdminPanel />} />
+        </Route>
+      </Routes>
+    </ReactQueryConfigProvider>
   );
 }
 

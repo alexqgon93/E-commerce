@@ -17,7 +17,7 @@ const Dashboard = (): ReactElement => {
     isError: errorProducts,
     data: dataProducts,
     error: errorMessageProducts,
-  } = useQuery<Array<Products>>('getAllCategories', async () => getAllProducts());
+  } = useQuery<Array<Products>>('getAllProducts', async () => getAllProducts());
 
   if (loadingCategories || loadingProducts) {
     return <CircularProgress />;
@@ -27,32 +27,24 @@ const Dashboard = (): ReactElement => {
     return <span>Error: {errorMessageCategories || errorMessageProducts}</span>;
   }
 
-  if (dataCategories && dataProducts) {
-    return (
-      <div>
-        <h1>Sección de Categorias</h1>
-        {dataCategories.map((todo) => (
+  return (
+    <div>
+      <h1>Sección de Categorias</h1>
+      {dataCategories &&
+        dataCategories.map((todo) => (
           <dl key={todo.id}>
             <dt>{todo.name}</dt>
             <dd>{todo.description}</dd>
           </dl>
         ))}
-        <h1>Seccion de Productos</h1>
-        {console.log(dataProducts)}
-        {dataProducts.map((item) => (
+      <h1>Seccion de Productos</h1>
+      {dataProducts &&
+        dataProducts.map((item) => (
           <dl key={item.id}>
             <dt>{item.name}</dt>
             <dd>{item.description}</dd>
           </dl>
         ))}
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <h1>Pagina de bienvenida</h1>
-      <h1>There is nothing to show</h1>
     </div>
   );
 };

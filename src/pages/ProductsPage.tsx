@@ -17,7 +17,13 @@ const ProductsPage = (): ReactElement => {
   return (
     <div>
       <h1>Pagina de productos</h1>
-      {console.log(data)}
+      {data &&
+        data.map((todo) => (
+          <dl key={todo.id}>
+            <dt>{todo.name}</dt>
+            <dd>{todo.description}</dd>
+          </dl>
+        ))}
     </div>
   );
 };

@@ -18,12 +18,7 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -38,22 +33,21 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
+  const handelClickOnHome = () => {
+    window.location.replace('/');
+  };
 
+  const handleClickOnProfile = () => {
+    window.location.replace('/profile');
+    handleMenuClose();
+  };
+
+  const handleClickOnCart = () => {
+    window.location.replace('/cart');
+    handleMenuClose();
+  };
+
+  const menuId = 'primary-search-account-menu';
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -65,7 +59,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleClickOnProfile}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -74,7 +68,18 @@ export default function PrimarySearchAppBar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        Profile
+      </MenuItem>
+      <MenuItem onClick={handleClickOnCart}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <Cart />
+        </IconButton>
+        Cart
       </MenuItem>
     </Menu>
   );
@@ -84,7 +89,7 @@ export default function PrimarySearchAppBar() {
       <AppBar position="static" style={{ background: '#2E3B55' }}>
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
-            Motorcycle E-commerce
+            <div onClick={handelClickOnHome}>Motorcycle E-commerce</div>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -101,7 +106,7 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="cart" color="inherit">
+            <IconButton onClick={handleClickOnCart} aria-label="cart" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <Cart />
               </Badge>
@@ -111,7 +116,7 @@ export default function PrimarySearchAppBar() {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              onClick={handleClickOnProfile}
               color="inherit"
             >
               <AccountCircle />
@@ -131,7 +136,6 @@ export default function PrimarySearchAppBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </div>
   );
 }

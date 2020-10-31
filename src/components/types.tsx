@@ -5,13 +5,14 @@ export interface Users {
   username: string;
   password: string;
   email: string;
-  dat_birth: string;
+  date_birth: string;
 }
 
 export interface Categories {
   id: number;
   name: string;
   description: string;
+  picture: string;
 }
 
 export interface Products {

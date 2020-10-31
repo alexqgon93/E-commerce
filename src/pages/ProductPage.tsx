@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { Products } from '../components/types';
 import { getAllProducts } from '../services/products.service';
 
-const ProductsPage = (): ReactElement => {
+const ProductPage = (): ReactElement => {
   const { isLoading, isError, error, data } = useQuery<Array<Products>>('getAllProducts', async () => getAllProducts());
 
   if (isLoading) {
@@ -28,4 +28,4 @@ const ProductsPage = (): ReactElement => {
   );
 };
 
-export default ProductsPage;
+export default ProductPage;

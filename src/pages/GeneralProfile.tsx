@@ -6,7 +6,6 @@ import { getAllUsers } from '../services/users.service';
 
 const GeneralProfile = (): ReactElement => {
   const { isLoading, isError, error, data } = useQuery<Array<Users>>('getAllCategories', async () => getAllUsers());
-
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -14,6 +13,7 @@ const GeneralProfile = (): ReactElement => {
   if (isError) {
     return <span>Error: {error}</span>;
   }
+
   return (
     <div>
       <h1>Sección de Perfil General</h1>

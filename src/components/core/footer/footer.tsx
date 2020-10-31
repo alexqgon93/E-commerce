@@ -1,18 +1,32 @@
-import { AppBar, Container, Typography, Toolbar } from '@material-ui/core';
+import { Container, Typography, Link, CssBaseline } from '@material-ui/core';
 import React, { ReactElement } from 'react';
-import { useTranslation } from 'react-i18next';
-import styles from './footer.module.scss';
+import useStyles from './footerStyle';
+
+const Copyright = () => {
+  const classes = useStyles();
+  return (
+    <Typography variant="body1" className={classes.typography}>
+      {'Copyright © '}
+      <Link color="inherit" href="/">
+        Motorcycle E-commerce
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+};
 
 const Footer = (): ReactElement => {
-  const { t } = useTranslation();
+  const classes = useStyles();
+
   return (
-    <AppBar className={styles.wrapperFooter} component="footer" position="fixed" color="inherit" elevation={0}>
-      <Container maxWidth="md">
-        <Toolbar>
-          <Typography>{t('footer.copyright')}</Typography>
-        </Toolbar>
-      </Container>
-    </AppBar>
+    <div>
+      <footer className={classes.footer}>
+        <Container maxWidth="sm">
+          <Copyright />
+        </Container>
+      </footer>
+    </div>
   );
 };
 

@@ -1,5 +1,6 @@
-import { CircularProgress } from '@material-ui/core';
+import { Button, CircularProgress, Paper } from '@material-ui/core';
 import React, { ReactElement } from 'react';
+import Carousel from 'react-material-ui-carousel';
 import { useQuery } from 'react-query';
 import { Categories, Products } from '../components/types';
 import { getAllCategories } from '../services/categories.service';
@@ -29,20 +30,23 @@ const Dashboard = (): ReactElement => {
 
   return (
     <div>
-      <h1>Sección de Categorias</h1>
+      <h1>Seccion de Productos Destacados</h1>
+      <Carousel>
+        {dataProducts &&
+          dataProducts.map((item, i) => (
+            <Paper key={i}>
+              <h2>{item.name}</h2>
+              <p>{item.description}</p>
+              <Button className="CheckButton">Check it out!</Button>
+            </Paper>
+          ))}
+      </Carousel>
+      <h1>Categories</h1>
       {dataCategories &&
         dataCategories.map((todo) => (
           <dl key={todo.id}>
             <dt>{todo.name}</dt>
             <dd>{todo.description}</dd>
-          </dl>
-        ))}
-      <h1>Seccion de Productos</h1>
-      {dataProducts &&
-        dataProducts.map((item) => (
-          <dl key={item.id}>
-            <dt>{item.name}</dt>
-            <dd>{item.description}</dd>
           </dl>
         ))}
     </div>

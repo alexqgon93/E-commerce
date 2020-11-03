@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/dashboard/Dashboard';
 import Categories from './pages/Categories';
 import Product from './pages/ProductPage';
 import Cart from './pages/Cart';
@@ -26,8 +26,8 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/product" element={<Product />} />
+          <Route path="/categories/:id" element={<Categories />} />
+          <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<GeneralProfile />} />
           <Route path="/adminpanel" element={<AdminPanel />} />

@@ -86,7 +86,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{ background: '#2E3B55' }}>
+      <AppBar position="static">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             <div onClick={handelClickOnHome}>Motorcycle E-commerce</div>

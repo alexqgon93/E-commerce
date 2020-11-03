@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Categories = (): ReactElement => {
-  // we need to make calls to get the products from one category
+  let { id } = useParams();
   return (
     <div>
-      <h1>Pagina de categorias</h1>
+      <h1>Pagina de categorias {id}</h1>
     </div>
   );
 };

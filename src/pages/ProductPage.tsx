@@ -3,8 +3,10 @@ import React, { ReactElement } from 'react';
 import { useQuery } from 'react-query';
 import { Products } from '../components/types';
 import { getAllProducts } from '../services/products.service';
+import { useParams } from 'react-router-dom';
 
 const ProductPage = (): ReactElement => {
+  let { id } = useParams();
   const { isLoading, isError, error, data } = useQuery<Array<Products>>('getAllProducts', async () => getAllProducts());
 
   if (isLoading) {

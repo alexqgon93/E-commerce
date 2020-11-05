@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   typography: {
-    color: '#ffffff',
+    color: theme.palette.secondary.dark,
   },
 }));
 

@@ -1,11 +1,11 @@
-import { Container, Typography, Link, CssBaseline } from '@material-ui/core';
+import { Container, Typography, Link } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import useStyles from './footerStyle';
 
 const Copyright = () => {
   const classes = useStyles();
   return (
-    <Typography variant="body1" className={classes.typography}>
+    <Typography variant="h6" className={classes.typography}>
       {'Copyright © '}
       <Link color="inherit" href="/">
         Motorcycle E-commerce

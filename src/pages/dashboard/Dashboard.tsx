@@ -1,4 +1,4 @@
-import { Button, CircularProgress, Slide } from '@material-ui/core';
+import { Button, CircularProgress, Grid, GridSpacing, Slide } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { useQuery } from 'react-query';
@@ -7,6 +7,7 @@ import { getAllCategories } from '../../services/categories.service';
 import { getAllProducts } from '../../services/products.service';
 import { useSwipeable } from 'react-swipeable';
 import useStyles from './DashboardStyles';
+import MediaCard from '../../components/core/card/card';
 
 function CarouselItem(props: any) {
   const swipeHandlers = useSwipeable({
@@ -32,6 +33,7 @@ function CarouselItem(props: any) {
 }
 const Dashboard = (): ReactElement => {
   const classes = useStyles();
+  const [spacing, setSpacing] = React.useState<GridSpacing>(2);
   const {
     isLoading: loadingCategories,
     isError: errorCategories,
@@ -76,16 +78,27 @@ const Dashboard = (): ReactElement => {
       <div className={classes.sectionCategories}>
         <h1>Categories</h1>
       </div>
-      {dataCategories &&
-        dataCategories.map((todo) => (
-          <dl key={todo.id}>
-            <dt>{todo.name}</dt>
-            <dd>{todo.description}</dd>
-            <Button title="get it" onClick={() => handleClicOnCategory(todo.id)}>
-              Click me
-            </Button>
-          </dl>
-        ))}
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs={12}>
+          <Grid container className={classes.container} spacing={spacing}>
+            {dataCategories &&
+              dataCategories.map((todo) => (
+                <Grid key={todo.id}>
+                  <MediaCard
+                    title={todo.name}
+                    description={todo.description}
+                    picture={
+                      'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bennetts.co.uk%2Fbikesocial%2Fnews-and-views%2Ffeatures%2Fbikes%2Flightest-weight-motorcycles&psig=AOvVaw1riQUDcJgGcb0PjSyqBfQk&ust=1604595771317000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICX1puv6ewCFQAAAAAdAAAAABAD'
+                    }
+                  />
+                  {/* <Button title="get it" onClick={() => handleClicOnCategory(todo.id)}>
+                Click me
+              </Button> */}
+                </Grid>
+              ))}
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 };

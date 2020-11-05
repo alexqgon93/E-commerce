@@ -9,13 +9,16 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
     },
     root: {
-      flexGrow: 1,
-    },
-    paper: {
-      height: 140,
-      width: 100,
+      display: 'grid',
+      justifyContent: 'space-around',
+      gridGap: '.5rem',
     },
     container: {
+      alignItems: 'center',
+      gridTemplateColumns: '100px repeat(2, 50px) 200px',
+      gridTemplateRows: 'repeat(2, 50px 100px)',
+      columnGap: '10rem',
+      rowGap: '10rem',
       justifyContent: 'center',
     },
   })

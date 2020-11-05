@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     bottom: 0,
     position: 'fixed',
+    marginTop: theme.spacing(8),
     width: '100%',
   },
   typography: {

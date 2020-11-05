@@ -18,7 +18,7 @@ const ProductPage = (): ReactElement => {
   }
   return (
     <div>
-      <h1>Pagina de productos</h1>
+      <h1>Pagina de productos {id}</h1>
       {data &&
         data.map((todo) => (
           <dl key={todo.id}>

@@ -33,7 +33,7 @@ function CarouselItem(props: any) {
 }
 const Dashboard = (): ReactElement => {
   const classes = useStyles();
-  const [spacing, setSpacing] = React.useState<GridSpacing>(2);
+  const [spacing] = React.useState<GridSpacing>(2);
   const {
     isLoading: loadingCategories,
     isError: errorCategories,
@@ -55,10 +55,6 @@ const Dashboard = (): ReactElement => {
     return <span>Error: {errorMessageCategories || errorMessageProducts}</span>;
   }
 
-  const handleClicOnCategory = (id: React.Key) => {
-    window.location.replace('/categories/' + id);
-  };
-
   const handleClickOnProduct = (id: React.Key) => {
     window.location.replace('/products/' + id);
   };
@@ -69,16 +65,13 @@ const Dashboard = (): ReactElement => {
       <Carousel>
         {dataProducts &&
           dataProducts.map((item, i) => (
-            <img
-              src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
-              key={i}
-            />
+            <img src="https://fotos00.formulamoto.es/2019/11/12/1024x341/honda-cbr1000rr-fireblade.jpg" key={i} />
           ))}
       </Carousel>
       <div className={classes.sectionCategories}>
         <h1>Categories</h1>
       </div>
-      <Grid container className={classes.root} spacing={2}>
+      <Grid container className={classes.root} spacing={3}>
         <Grid item xs={12}>
           <Grid container className={classes.container} spacing={spacing}>
             {dataCategories &&
@@ -90,10 +83,8 @@ const Dashboard = (): ReactElement => {
                     picture={
                       'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bennetts.co.uk%2Fbikesocial%2Fnews-and-views%2Ffeatures%2Fbikes%2Flightest-weight-motorcycles&psig=AOvVaw1riQUDcJgGcb0PjSyqBfQk&ust=1604595771317000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICX1puv6ewCFQAAAAAdAAAAABAD'
                     }
+                    id={todo.id}
                   />
-                  {/* <Button title="get it" onClick={() => handleClicOnCategory(todo.id)}>
-                Click me
-              </Button> */}
                 </Grid>
               ))}
           </Grid>

@@ -8,7 +8,7 @@ export function getAllProducts(): Promise<Array<Types.Products>> {
   return ApiService.get<Array<Types.Products>>(url);
 }
 
-export function getProductById(id: number): Promise<Types.Products> {
-  const url = new URL(hostBaseUrl + endpoints.products.getProductById + '/' + id);
-  return ApiService.get<Types.Products>(url);
+export function getProductById(id: number): Promise<Array<Types.Products>> {
+  const url = new URL(hostBaseUrl + endpoints.products.getProductById + id);
+  return ApiService.get<Array<Types.Products>>(url);
 }

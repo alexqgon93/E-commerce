@@ -3,16 +3,16 @@
         "getAll": "/users",
         "getUserById": "/users/{id}",
         "register": "/users/add",
-        "upateUser": "/users/update/{id}",
-        "deleteUser": "/users/delete/{id}"
+        "upateUser": "/users/update/",
+        "deleteUser": "/users/delete/"
     },
     "categories": {
         "getAll": "/categories",
-        "getCategoryById": "/categories/{id}"
+        "getCategoryById": "/categories/"
     },
     "products": {
         "getAll": "/products",
-        "getProductById": "/products/{id}"
+        "getProductById": "/products/"
     },
     "cart": {
         "getAll": "/cart",

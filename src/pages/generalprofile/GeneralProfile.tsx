@@ -1,8 +1,8 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import { useQuery } from 'react-query';
-import { Users } from '../components/types';
-import { getAllUsers } from '../services/users.service';
+import { Users } from '../../components/types';
+import { getAllUsers } from '../../services/users.service';
 
 const GeneralProfile = (): ReactElement => {
   const { isLoading, isError, error, data } = useQuery<Array<Users>>('getAllCategories', async () => getAllUsers());

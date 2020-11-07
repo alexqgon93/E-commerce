@@ -6,8 +6,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.light,
   },
   media: {
-    height: 140,
-    paddingTop:56,
+    height: '100%',
   },
 }));
 

@@ -1,13 +1,16 @@
 import { CircularProgress } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import { useQuery } from 'react-query';
-import { Products } from '../components/types';
-import { getAllProducts } from '../services/products.service';
+import { Products } from '../../components/types';
+import { getProductById } from '../../services/products.service';
 import { useParams } from 'react-router-dom';
 
 const ProductPage = (): ReactElement => {
-  let { id } = useParams();
-  const { isLoading, isError, error, data } = useQuery<Array<Products>>('getAllProducts', async () => getAllProducts());
+  const { id } = useParams();
+  const idNumber = parseInt(id);
+  const { isLoading, isError, error, data } = useQuery<Array<Products>>('getAllProducts', async () =>
+    getProductById(idNumber)
+  );
 
   if (isLoading) {
     return <CircularProgress />;

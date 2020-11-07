@@ -28,3 +28,12 @@ export interface Roles {
   id: number;
   description: string;
 }
+
+export interface Carts {
+  cartId: string;
+  cartDate: string;
+  cartAmount: string;
+  userName: string;
+  userSurname: string;
+  productName: string;
+}

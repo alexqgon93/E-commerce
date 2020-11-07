@@ -13,7 +13,8 @@
     "products": {
         "getAll": "/products",
         "getProductById": "/products/",
-        "getProductsByCategory": "/products-category/"
+        "getProductsByCategory": "/products-category/",
+        "getFeaturedProducts": "/products-featured"
     },
     "cart": {
         "getAll": "/cart",

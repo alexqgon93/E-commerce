@@ -3,15 +3,15 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/dashboard/Dashboard';
 import Categories from './pages/categories/Categories';
-import Product from './pages/ProductPage';
-import Cart from './pages/Cart';
-import AdminPanel from './pages/AdminPanel';
+import Product from './pages/product/ProductPage';
+import Cart from './pages/cart/Cart';
+import AdminPanel from './pages/adminpanel/AdminPanel';
 import LayoutContext from './components/core/context/layoutContext/layoutContext';
 import MainLayout from './components/core/mainlayout/MainLayout';
 import { ReactQueryConfigProvider } from 'react-query';
-import GeneralProfile from './pages/GeneralProfile';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
+import GeneralProfile from './pages/generalprofile/GeneralProfile';
+import LoginPage from './pages/login/LoginPage';
+import RegisterPage from './pages/register/RegisterPage';
 
 function App() {
   const reactQueryConfig = {

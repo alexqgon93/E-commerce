@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     sectionCategories: {
-      marginTop: theme.spacing(6),
+      marginTop: theme.spacing(4),
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -38,6 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
       transition: '300ms',
       position: 'relative',
+    },
+    h1: {
+      alignItems: 'center',
+      textAlign: 'center',
     },
   })
 );

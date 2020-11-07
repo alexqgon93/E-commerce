@@ -4,7 +4,7 @@ import Carousel from 'react-material-ui-carousel';
 import { useQuery } from 'react-query';
 import { Categories, Products } from '../../components/types';
 import { getAllCategories } from '../../services/categories.service';
-import { getAllProducts } from '../../services/products.service';
+import { getFeaturedProducts } from '../../services/products.service';
 import useStyles from './DashboardStyles';
 import MediaCard from '../../components/core/card/card';
 
@@ -22,7 +22,7 @@ const Dashboard = (): ReactElement => {
     isError: errorProducts,
     data: dataProducts,
     error: errorMessageProducts,
-  } = useQuery<Array<Products>>('getAllProducts', async () => getAllProducts());
+  } = useQuery<Array<Products>>('getFeaturedProducts', async () => getFeaturedProducts());
 
   if (loadingCategories || loadingProducts) {
     return <CircularProgress />;
@@ -34,14 +34,13 @@ const Dashboard = (): ReactElement => {
 
   return (
     <div>
-      <h1>Seccion de Productos Destacados</h1>
+      <h1 className={classes.h1}>Productos Destacados del Mes</h1>
       <Carousel>
         {dataProducts &&
           dataProducts.map((item, i) => (
-            <Card raised className={classes.carousel}>
+            <Card raised className={classes.carousel} key={item.id}>
               <Grid item xs={12}>
                 <CardMedia
-                  key={item.id}
                   className={classes.media}
                   image="https://fotos00.formulamoto.es/2019/11/12/1024x341/honda-cbr1000rr-fireblade.jpg"
                   title={item.name}

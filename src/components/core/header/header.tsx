@@ -91,7 +91,7 @@ export default function PrimarySearchAppBar() {
           <Typography className={classes.title} variant="h6" noWrap>
             <div onClick={handelClickOnHome}>Motorcycle E-commerce</div>
           </Typography>
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -103,7 +103,7 @@ export default function PrimarySearchAppBar() {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </div>
+          </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton onClick={handleClickOnCart} aria-label="cart" color="inherit">

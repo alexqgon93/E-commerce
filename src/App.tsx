@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/dashboard/Dashboard';
-import Categories from './pages/Categories';
+import Categories from './pages/categories/Categories';
 import Product from './pages/ProductPage';
 import Cart from './pages/Cart';
 import AdminPanel from './pages/AdminPanel';

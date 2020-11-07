@@ -12,7 +12,8 @@
     },
     "products": {
         "getAll": "/products",
-        "getProductById": "/products/"
+        "getProductById": "/products/",
+        "getProductsByCategory": "/products-category/"
     },
     "cart": {
         "getAll": "/cart",

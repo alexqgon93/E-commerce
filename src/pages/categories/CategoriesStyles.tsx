@@ -21,24 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
       rowGap: '10rem',
       justifyContent: 'center',
     },
-    rootCard: {
-      maxWidth: 345,
-    },
-    mediaCard: {
-      height: 140,
-    },
-    carousel: {
-      height: '400px',
-      position: 'relative',
-    },
-    media: {
-      backgroundColor: theme.palette.background.default,
-      height: '400px',
-      overflow: 'hidden',
-      cursor: 'pointer',
-      transition: '300ms',
-      position: 'relative',
-    },
   })
 );
 

@@ -19,7 +19,7 @@ const MediaCard = (prop: { title: string; description: string; picture: string; 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={prop.picture} title={prop.title} />
+        <CardMedia component="img" alt={prop.title} className={classes.media} image={prop.picture} title={prop.title} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {prop.title}

@@ -12,3 +12,8 @@ export function getProductById(id: number): Promise<Array<Types.Products>> {
   const url = new URL(hostBaseUrl + endpoints.products.getProductById + id);
   return ApiService.get<Array<Types.Products>>(url);
 }
+
+export function getProductByCategoryId(id: number): Promise<Array<Types.Products>> {
+  const url = new URL(hostBaseUrl + endpoints.products.getProductsByCategory + id);
+  return ApiService.get<Array<Types.Products>>(url);
+}

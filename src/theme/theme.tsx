@@ -2,42 +2,53 @@ import { createMuiTheme } from '@material-ui/core';
 
 const theme = createMuiTheme({
   typography: {
+    button: {
+      textDecorationColor: '#FAFAF9',
+      background: 'linear-gradient(106deg, #FAFAF9 0%, #B4957E 105%)',
+    },
+
     h1: {
+      color: '#4B5B9D',
       fontSize: '1.875rem',
     },
     h2: {
+      color: '#4B5B9D',
       fontSize: '1.5625rem',
     },
     h3: {
+      color: '#4B5B9D',
       fontSize: '1.5625rem',
     },
     h4: {
+      color: '#4B5B9D',
       fontSize: '1.375rem',
     },
     h5: {
+      color: '#B4957E',
       fontSize: '1.375rem',
     },
     body1: {
+      color: '#4B5B9D',
       letterSpacing: '0.004rem',
     },
     body2: {
-      color: '#35261a',
+      color: '#FAFAF9',
     },
   },
   palette: {
     primary: {
       dark: '#F2F1EF',
-      main: '#D8CFD0',
+      main: '#4B5B9D',
     },
     secondary: {
-      main: '#B1A6A4',
-      dark: '#413F3D',
+      main: '#AE939A',
+      dark: '#8C7896',
     },
     error: {
-      main: '#ff5252',
+      main: '#f44336',
     },
     background: {
-      default: '#F2F1EF',
+      default: '#FAFAF9',
     },
   },
 });

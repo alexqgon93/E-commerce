@@ -25,6 +25,7 @@
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "3.4.3",
     "react-swipeable": "^5.5.1",
+    "typeface-roboto": "^1.1.13",
     "typescript": "^3.7.5",
     "yup": "^0.29.3"
   },

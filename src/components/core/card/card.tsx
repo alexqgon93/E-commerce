@@ -24,7 +24,7 @@ const MediaCard = (prop: { title: string; description: string; picture: string; 
           <Typography gutterBottom variant="h5" component="h2">
             {prop.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" component="p">
             {prop.description}
           </Typography>
         </CardContent>
@@ -32,12 +32,11 @@ const MediaCard = (prop: { title: string; description: string; picture: string; 
       <CardActions>
         <Button
           size="medium"
-          variant="outlined"
-          color="inherit"
+          variant="contained"
           startIcon={<AddShoppingCart />}
           onClick={() => handleClicOnCategory(prop.id)}
         >
-          {prop.title} Products
+          {prop.title}
         </Button>
       </CardActions>
     </Card>

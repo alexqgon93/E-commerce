@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
-    backgroundColor: theme.palette.secondary.light,
+    height: '100%',
+    backgroundColor: theme.palette.primary.main,
   },
   media: {
     height: '100%',

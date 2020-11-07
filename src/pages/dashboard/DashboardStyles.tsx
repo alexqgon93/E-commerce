@@ -7,25 +7,18 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      color: '#4B5B9D',
     },
     root: {
       display: 'grid',
-      justifyContent: 'space-around',
-      gridGap: '.5rem',
     },
     container: {
-      alignItems: 'center',
+      alignItems: 'strech',
       gridTemplateColumns: '100px repeat(2, 50px) 200px',
       gridTemplateRows: 'repeat(2, 50px 100px)',
       columnGap: '10rem',
       rowGap: '10rem',
       justifyContent: 'center',
-    },
-    rootCard: {
-      maxWidth: 345,
-    },
-    mediaCard: {
-      height: 140,
     },
     carousel: {
       height: '400px',
@@ -42,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     h1: {
       alignItems: 'center',
       textAlign: 'center',
+      color: '#4B5B9D',
     },
   })
 );

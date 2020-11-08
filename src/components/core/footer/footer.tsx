@@ -20,13 +20,11 @@ const Footer = (): ReactElement => {
   const classes = useStyles();
 
   return (
-    <div>
-      <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Copyright />
-        </Container>
-      </footer>
-    </div>
+    <footer className={classes.footer}>
+      <Container maxWidth="sm">
+        <Copyright />
+      </Container>
+    </footer>
   );
 };
 

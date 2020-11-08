@@ -1,4 +1,4 @@
-import { CircularProgress, IconButton } from '@material-ui/core';
+import { CircularProgress, IconButton, Link } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { ReactElement } from 'react';
 import { useQuery } from 'react-query';
@@ -15,6 +15,24 @@ const AdminPanel = (): ReactElement => {
   if (isError) {
     return <span>Error: {error}</span>;
   }
+
+  /*const handleDeleteCard = (id: React.Key) => {
+    const idNumber = parseInt(id.toString());
+    const { isLoading: loadingDelete, isError: errorDelete, data: dataDelete, error: errorMessageDelete } = useQuery<
+      DeletedCart
+    >('deleteCardById', async () => deleteCardById(idNumber));
+
+    if (loadingDelete) {
+      return <CircularProgress />;
+    }
+    if (errorDelete) {
+      return alert(`Error: ${errorMessageDelete}`);
+    }
+    return dataDelete && dataDelete?.numberCart == 1
+      ? window.location.reload(false)
+      : alert(`Error: ${errorMessageDelete}`);
+  };*/
+
   return (
     <div className={styles.limiter}>
       <h1>Current Orders</h1>
@@ -44,9 +62,11 @@ const AdminPanel = (): ReactElement => {
                       <td className={styles.column4}>{item.productName}</td>
                       <td className={styles.column5}>{item.cartAmount}</td>
                       <td className={styles.column6}>
-                        <IconButton color="primary" aria-label="upload picture" component="span">
-                          <DeleteIcon />
-                        </IconButton>
+                        <Link onClick={() => alert(`Must do the query`)}>
+                          <IconButton color="primary" aria-label="upload picture" component="span">
+                            <DeleteIcon />
+                          </IconButton>
+                        </Link>
                       </td>
                     </tr>
                   ))}

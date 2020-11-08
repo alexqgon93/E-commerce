@@ -8,7 +8,7 @@ import useStyles from './mainLayoutStyle';
 const MainLayout = (): ReactElement => {
   const classes = useStyles();
   return (
-    <div className={`${classes.root}`}>
+    <div className={classes.root}>
       <Header />
       <div>
         <Outlet />

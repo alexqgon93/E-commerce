@@ -37,3 +37,7 @@ export interface Carts {
   userSurname: string;
   productName: string;
 }
+
+export interface DeletedCart {
+  numberCart: number;
+}

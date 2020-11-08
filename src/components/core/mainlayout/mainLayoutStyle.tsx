@@ -4,6 +4,8 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       height: '100%',
+      background: 'linear-gradient(234deg, #fafaf9, #8c796a)',
+      animation: 'AnimationName 12s ease infinite',
     },
     content: {
       background: 'transparent',

@@ -18,7 +18,8 @@
     },
     "cart": {
         "getAll": "/cart",
-        "getCartById": "/cart/{id}"
+        "getCartById": "/cart/{id}",
+        "deleteCardById": "/cart/delete/"
     },
     "roles": {
         "getRoles": "/roles",

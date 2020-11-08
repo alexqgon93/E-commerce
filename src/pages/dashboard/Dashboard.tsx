@@ -1,4 +1,4 @@
-import { Card, CardMedia, CircularProgress, CssBaseline, Grid, GridSpacing, Typography } from '@material-ui/core';
+import { Card, CardMedia, CircularProgress, CssBaseline, Grid, GridSpacing, Link, Typography } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { useQuery } from 'react-query';
@@ -32,6 +32,10 @@ const Dashboard = (): ReactElement => {
     return <span>Error: {errorMessageCategories || errorMessageProducts}</span>;
   }
 
+  const handleClickOnCarousel = (id: React.Key) => {
+    window.location.replace('/product/' + id);
+  };
+
   return (
     <div>
       <CssBaseline>
@@ -41,13 +45,15 @@ const Dashboard = (): ReactElement => {
             dataProducts.map((item, i) => (
               <Card raised className={classes.carousel} key={item.id}>
                 <Grid item xs={12}>
-                  <CardMedia
-                    className={classes.media}
-                    image="https://fotos00.formulamoto.es/2019/11/12/1024x341/honda-cbr1000rr-fireblade.jpg"
-                    title={item.name}
-                  >
-                    <Typography>{item.name}</Typography>
-                  </CardMedia>
+                  <Link onClick={() => handleClickOnCarousel(item.id)}>
+                    <CardMedia
+                      className={classes.media}
+                      image="https://fotos00.formulamoto.es/2019/11/12/1024x341/honda-cbr1000rr-fireblade.jpg"
+                      title={item.name}
+                    >
+                      <Typography>{item.name}</Typography>
+                    </CardMedia>
+                  </Link>
                 </Grid>
               </Card>
             ))}

@@ -7,3 +7,8 @@ export function getCarts(): Promise<Array<Types.Carts>> {
   const url = new URL(hostBaseUrl + endpoints.cart.getAll);
   return ApiService.get<Array<Types.Carts>>(url);
 }
+
+export function deleteCardById(id: number): Promise<Types.DeletedCart> {
+  const url = new URL(hostBaseUrl + endpoints.cart.deleteCardById + id);
+  return ApiService.deleteForm<Types.DeletedCart>(url);
+}

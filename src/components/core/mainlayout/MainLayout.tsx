@@ -10,10 +10,10 @@ const MainLayout = (): ReactElement => {
   return (
     <div className={classes.root}>
       <Header />
-      <div>
+      <div className={classes.contentWrap}>
         <Outlet />
       </div>
-      <div>
+      <div className={classes.footer}>
         <Footer />
       </div>
     </div>

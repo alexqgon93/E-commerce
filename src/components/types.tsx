@@ -22,6 +22,7 @@ export interface Products {
   price: number;
   category: number;
   featured: string;
+  picture: string;
 }
 
 export interface Roles {

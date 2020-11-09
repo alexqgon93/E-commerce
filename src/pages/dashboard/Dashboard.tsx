@@ -46,7 +46,7 @@ const Dashboard = (): ReactElement => {
               <Link onClick={() => handleClickOnCarousel(item.id)}>
                 <CardMedia
                   className={classes.media}
-                  image="https://fotos00.formulamoto.es/2019/11/12/1024x341/honda-cbr1000rr-fireblade.jpg"
+                  image={'http://local.api.localhost' + item.picture}
                   title={item.name}
                 >
                   <Typography gutterBottom variant="h1" component="h2" className={classes.ty}>
@@ -69,7 +69,7 @@ const Dashboard = (): ReactElement => {
                   <MediaCard
                     title={todo.name}
                     description={todo.description}
-                    picture="https://www.motorcyclecruiser.com/resizer/N5Zp2LstRAH0lCliJYBgM0ewZyU=/800x400/arc-anglerfish-arc2-prod-bonnier.s3.amazonaws.com/public/7OXROXB3BRUZYLHL2Q2KKU5NLA.jpg"
+                    picture={'http://local.api.localhost' + todo.picture}
                     id={todo.id}
                   />
                 </Grid>

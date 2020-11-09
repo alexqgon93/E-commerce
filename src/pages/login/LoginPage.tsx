@@ -7,9 +7,18 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './LoginStyles';
 import Container from '@material-ui/core/Container';
+import useLocalStorage from 'react-localstorage-hook';
 
 export default function LoginPage() {
   const classes = useStyles();
+  const [item, setItem] = useLocalStorage('token', null);
+
+  const loginAuth = () => {
+    let req: any;
+    if (req) {
+      setItem(req.token);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">

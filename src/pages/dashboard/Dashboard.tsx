@@ -7,9 +7,11 @@ import { getAllCategories } from '../../services/categories.service';
 import { getFeaturedProducts } from '../../services/products.service';
 import useStyles from './DashboardStyles';
 import MediaCard from '../../components/core/card/card';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = (): ReactElement => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [spacing] = React.useState<GridSpacing>(2);
   const {
     isLoading: loadingCategories,
@@ -32,10 +34,6 @@ const Dashboard = (): ReactElement => {
     return <span>Error: {errorMessageCategories || errorMessageProducts}</span>;
   }
 
-  const handleClickOnCarousel = (id: React.Key) => {
-    window.location.replace('/product/' + id);
-  };
-
   return (
     <div>
       <h1 className={classes.h1}>Productos Destacados del Mes</h1>
@@ -43,7 +41,7 @@ const Dashboard = (): ReactElement => {
         {dataProducts &&
           dataProducts.map((item, i) => (
             <Card raised className={classes.carousel} key={item.id}>
-              <Link onClick={() => handleClickOnCarousel(item.id)}>
+              <Link onClick={() => navigate('/product/' + item.id)}>
                 <CardMedia
                   className={classes.media}
                   image={'http://local.api.localhost' + item.picture}
@@ -71,6 +69,7 @@ const Dashboard = (): ReactElement => {
                     description={todo.description}
                     picture={'http://local.api.localhost' + todo.picture}
                     id={todo.id}
+                    action={'/categories/'}
                   />
                 </Grid>
               ))}

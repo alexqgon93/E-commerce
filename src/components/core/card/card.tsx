@@ -8,13 +8,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './cardStyles';
 import { AddShoppingCart } from '@material-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
-const handleClicOnCategory = (id: React.Key) => {
-  window.location.replace('/categories/' + id);
-};
-
-const MediaCard = (prop: { title: string; description: string; picture: string; id: React.Key }) => {
+const MediaCard = (prop: { title: string; description: string; picture: string; id: React.Key; action: string }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   return (
     <Card className={classes.root}>
@@ -34,7 +32,7 @@ const MediaCard = (prop: { title: string; description: string; picture: string; 
           size="medium"
           variant="contained"
           startIcon={<AddShoppingCart />}
-          onClick={() => handleClicOnCategory(prop.id)}
+          onClick={() => navigate(prop.action + prop.id)}
         >
           {prop.title}
         </Button>

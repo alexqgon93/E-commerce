@@ -10,15 +10,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     root: {
       display: 'grid',
-      justifyContent: 'space-around',
-      gridGap: '.5rem',
     },
     container: {
-      alignItems: 'center',
-      gridTemplateColumns: '100px repeat(2, 50px) 200px',
-      gridTemplateRows: 'repeat(2, 50px 100px)',
-      columnGap: '10rem',
-      rowGap: '10rem',
+      columnGap: '5rem',
+      rowGap: '5rem',
       justifyContent: 'center',
     },
   })

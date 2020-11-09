@@ -3,7 +3,9 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   footer: {
     padding: theme.spacing(2, 2),
-    backgroundColor: theme.palette.primary.main,
+    background: 'linear-gradient(359deg, #fafaf9, #4b5b9d)',
+    backgroundSize: '400% 400%',
+    animation: 'AnimationName 59s ease infinite',
     bottom: 0,
     position: 'absolute',
     width: '100%',

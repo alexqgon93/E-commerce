@@ -12,6 +12,9 @@ import useLocalStorage from 'react-localstorage-hook';
 export default function LoginPage() {
   const classes = useStyles();
   const [item, setItem] = useLocalStorage('token', null);
+  const handleSubmit = () => {
+    const userNameRegex = '^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$';
+  };
 
   const loginAuth = () => {
     let req: any;

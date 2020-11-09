@@ -47,8 +47,9 @@ const Categories = (): ReactElement => {
                   <MediaCard
                     title={todo.name}
                     description={todo.description}
-                    picture="https://www.motorcyclecruiser.com/resizer/N5Zp2LstRAH0lCliJYBgM0ewZyU=/800x400/arc-anglerfish-arc2-prod-bonnier.s3.amazonaws.com/public/7OXROXB3BRUZYLHL2Q2KKU5NLA.jpg"
+                    picture={'http://local.api.localhost' + todo.picture}
                     id={todo.id}
+                    action={'/product/'}
                   />
                 </Grid>
               ))}

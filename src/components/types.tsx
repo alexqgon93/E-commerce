@@ -42,3 +42,8 @@ export interface Carts {
 export interface DeletedCart {
   numberCart: number;
 }
+
+export interface Login {
+  token: string;
+  users: Users;
+}

@@ -8,6 +8,7 @@ import styles from './AdminPanelStyles.module.scss';
 
 const AdminPanel = (): ReactElement => {
   const { isLoading, isError, data, error } = useQuery<Array<Carts>>('getAllCategories', async () => getCarts());
+  //
   if (isLoading) {
     return <CircularProgress />;
   }

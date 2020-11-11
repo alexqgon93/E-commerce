@@ -10,9 +10,11 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import React from 'react';
 import { AppBar } from '@material-ui/core';
 import useStyles from './headerStyles';
+import { useNavigate } from 'react-router-dom';
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
+  const navigate = useNavigate();
   const [, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -32,16 +34,16 @@ export default function PrimarySearchAppBar() {
   };
 
   const handelClickOnHome = () => {
-    window.location.replace('/');
+    navigate('/');
   };
 
   const handleClickOnProfile = () => {
-    window.location.replace('/profile');
+    navigate('/adminpanel');
     handleMenuClose();
   };
 
   const handleClickOnCart = () => {
-    window.location.replace('/cart');
+    navigate('/cart');
     handleMenuClose();
   };
 

@@ -6,6 +6,7 @@ import { getProductById } from '../../services/products.service';
 import { useParams } from 'react-router-dom';
 import useStyles from './ProductStyles';
 import { AddShoppingCart } from '@material-ui/icons';
+import AdaptiveImage from 'react-adaptive-image';
 
 const ProductPage = (): ReactElement => {
   const classes = useStyles();
@@ -27,7 +28,7 @@ const ProductPage = (): ReactElement => {
     <div className={classes.container}>
       <div className={classes.divLeft}>
         <Card raised>
-          <img alt={data?.name} src={'http://local.api.localhost' + data?.picture} />
+          <AdaptiveImage alt={data?.name} src={'http://local.api.localhost' + data?.picture} />
         </Card>
       </div>
       <div className={classes.divRight}>

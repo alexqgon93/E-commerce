@@ -9,7 +9,6 @@ import AdminPanel from './pages/adminpanel/AdminPanel';
 import LayoutContext from './components/core/context/layoutContext/layoutContext';
 import MainLayout from './components/core/mainlayout/MainLayout';
 import { ReactQueryConfigProvider } from 'react-query';
-import GeneralProfile from './pages/generalprofile/GeneralProfile';
 import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
 
@@ -29,7 +28,6 @@ function App() {
           <Route path="/categories/:id" element={<Categories />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/profile" element={<GeneralProfile />} />
           <Route path="/adminpanel" element={<AdminPanel />} />
         </Route>
       </Routes>

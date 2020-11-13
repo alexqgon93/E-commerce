@@ -25,13 +25,16 @@ const ProductPage = (): ReactElement => {
 
   return (
     <div className={classes.container}>
-      <div className={classes.divLeft}>
-        <Card raised>
-          <img alt={data?.name} src={'http://local.api.localhost' + data?.picture} />
-        </Card>
+      <div className={classes.titlePage}>
+        <h1>Información detallada del producto</h1>
       </div>
-      <div className={classes.divRight}>
-        <Card raised>
+      <div className={classes.rowCart}>
+        <div className={classes.columnCartItems}>
+          <Card raised>
+            <img alt={data?.name} src={'http://local.api.localhost' + data?.picture} />
+          </Card>
+        </div>
+        <Card raised className={classes.cart}>
           <div className={classes.card}>
             <h1>{data?.name}</h1>
             <h2>Price of product:</h2>

@@ -2,21 +2,11 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      overflow: 'hidden',
-      boxSizing: 'border-box',
-      display: 'inlince-block',
-    },
-    divLeft: { float: 'left', padding: '2vh', width: '50%', height: '50%' },
-    divRight: {
-      float: 'right',
-      padding: '2vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '50%',
-      height: '50%',
-    },
+    container: { marginLeft: '.5rem', marginRight: '.5rem' },
+    titlePage: { textAlign: 'center', marginTop: '3rem' },
+    rowCart: { justifyContent: 'center', display: 'flex' },
+    columnCartItems: { float: 'left' },
+    cart: { padding: '2rem', marginLeft: '10rem' },
     card: {
       height: '100%',
       width: '100%',

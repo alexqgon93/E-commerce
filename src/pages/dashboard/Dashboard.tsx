@@ -64,13 +64,15 @@ const Dashboard = (): ReactElement => {
             {dataCategories &&
               dataCategories.map((todo) => (
                 <Grid key={todo.id}>
-                  <MediaCard
-                    title={todo.name}
-                    description={todo.description}
-                    picture={'http://local.api.localhost' + todo.picture}
-                    id={todo.id}
-                    action={'/categories/'}
-                  />
+                  <Link onClick={() => navigate('/categories/' + todo.id)}>
+                    <MediaCard
+                      title={todo.name}
+                      description={todo.description}
+                      picture={'http://local.api.localhost' + todo.picture}
+                      id={todo.id}
+                      action={'/categories/'}
+                    />
+                  </Link>
                 </Grid>
               ))}
           </Grid>

@@ -31,6 +31,7 @@ const MediaCard = (prop: { title: string; description: string; picture: string; 
         <Button
           size="medium"
           variant="contained"
+          className={classes.buttonCard}
           startIcon={<AddShoppingCart />}
           onClick={() => navigate(prop.action + prop.id)}
         >

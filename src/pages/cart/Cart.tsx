@@ -1,9 +1,11 @@
 import { Button, Card, CircularProgress } from '@material-ui/core';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { store } from '../../components/core/context/context/cartContext';
 import { Products } from '../../components/types';
 import { getFeaturedProducts } from '../../services/products.service';
+import formatter from '../../utils/formatter';
 import CartItem from './CartItem';
 import useStyles from './CartStyles';
 
@@ -14,6 +16,8 @@ const Cart = (): ReactElement => {
   const { isLoading, isError, data: cartItems, error } = useQuery<Array<Products>>('getFeaturedProducts', async () =>
     getFeaturedProducts()
   );
+
+  const globalState = useContext(store);
 
   if (isLoading) {
     return <CircularProgress />;
@@ -48,7 +52,7 @@ const Cart = (): ReactElement => {
               <p className={classes.productParraf}>Productos</p>
               <h4 className={classes.productInfoQuantity}>productcartItems</h4>
               <p className={classes.productParraf}>Coste Total</p>
-              <h3 className={classes.header3}>totalCost information</h3>
+              <h3 className={classes.header3}>{formatter(globalState.total)}</h3>
               <hr className={classes.jumpLine} />
               <div className={classes.buttons}>
                 <Button variant="contained" color="primary">

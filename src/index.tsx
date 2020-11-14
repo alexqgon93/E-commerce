@@ -9,14 +9,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme/theme';
 import { CssBaseline } from '@material-ui/core';
+import { StateProvider } from './components/core/context/context/cartContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <CssBaseline />
-        <App />
-      </BrowserRouter>
+      <StateProvider>
+        <BrowserRouter>
+          <CssBaseline />
+          <App />
+        </BrowserRouter>
+      </StateProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

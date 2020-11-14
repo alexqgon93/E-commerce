@@ -6,11 +6,14 @@ const useStyles = makeStyles((theme: Theme) =>
     titlePage: { textAlign: 'center', marginTop: '3rem' },
     rowCart: { justifyContent: 'center', display: 'flex' },
     columnCartItems: { float: 'left' },
-    cart: { padding: '2rem', marginLeft: '10rem' },
+    cart: { padding: '2rem', marginLeft: '5rem', maxHeight: '30rem', maxWidth: '40rem' },
     card: {
       height: '100%',
       width: '100%',
-      padding: '100px',
+      padding: '.5rem',
+    },
+    image: {
+      maxHeight: '30rem',
     },
   })
 );

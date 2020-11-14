@@ -1,7 +1,7 @@
 import { CircularProgress, Grid, GridSpacing } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import MediaCard from '../../components/core/card/card';
 import * as Types from '../../components/types';
 import useStyles from './CategoriesStyles';
@@ -12,6 +12,7 @@ const Categories = (): ReactElement => {
   const classes = useStyles();
   const [spacing] = React.useState<GridSpacing>(2);
   const { id } = useParams();
+  const navigate = useNavigate();
   const idNumber = parseInt(id);
   const {
     isLoading: isLoadingCategory,

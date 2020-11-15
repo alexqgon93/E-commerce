@@ -36,7 +36,9 @@ const Categories = (): ReactElement => {
   return (
     <div>
       <h1>{dataCategory?.name} Category</h1>
-      <p>{dataCategory?.description}</p>
+      <div className={classes.div}>
+        <h2>{dataCategory?.description}</h2>
+      </div>
 
       <Grid container className={classes.root} spacing={3}>
         <Grid item xs={12}>

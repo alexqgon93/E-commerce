@@ -2,13 +2,30 @@ import { CircularProgress, IconButton, Link } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { ReactElement } from 'react';
 import { useQuery } from 'react-query';
-import { Carts } from '../../components/types';
-import { getCarts } from '../../services/cart.service';
+import { useNavigate } from 'react-router-dom';
+import { Carts, DeletedCart } from '../../components/types';
+import { deleteCardById, getCarts } from '../../services/cart.service';
 import styles from './AdminPanelStyles.module.scss';
+
+const HandleDeleteCard = (id: React.Key) => {
+  const navigate = useNavigate();
+  const idNumber = parseInt(id.toString());
+  const { isLoading: loadingDelete, isError: errorDelete, data: dataDelete, error: errorMessageDelete } = useQuery<
+    DeletedCart
+  >('deleteCardById', async () => deleteCardById(idNumber));
+
+  if (loadingDelete) {
+    return <CircularProgress />;
+  }
+  if (errorDelete) {
+    return alert(`Error: ${errorMessageDelete}`);
+  }
+  return dataDelete && dataDelete?.numberCart == 1 ? navigate('/adminPanel') : alert(`Error: ${errorMessageDelete}`);
+};
 
 const AdminPanel = (): ReactElement => {
   const { isLoading, isError, data, error } = useQuery<Array<Carts>>('getAllCategories', async () => getCarts());
-  //
+
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -16,23 +33,6 @@ const AdminPanel = (): ReactElement => {
   if (isError) {
     return <span>Error: {error}</span>;
   }
-
-  /*const handleDeleteCard = (id: React.Key) => {
-    const idNumber = parseInt(id.toString());
-    const { isLoading: loadingDelete, isError: errorDelete, data: dataDelete, error: errorMessageDelete } = useQuery<
-      DeletedCart
-    >('deleteCardById', async () => deleteCardById(idNumber));
-
-    if (loadingDelete) {
-      return <CircularProgress />;
-    }
-    if (errorDelete) {
-      return alert(`Error: ${errorMessageDelete}`);
-    }
-    return dataDelete && dataDelete?.numberCart == 1
-      ? window.location.reload(false)
-      : alert(`Error: ${errorMessageDelete}`);
-  };*/
 
   return (
     <div className={styles.limiter}>
@@ -63,7 +63,7 @@ const AdminPanel = (): ReactElement => {
                       <td className={styles.column4}>{item.productName}</td>
                       <td className={styles.column5}>{item.cartAmount}</td>
                       <td className={styles.column6}>
-                        <Link onClick={() => alert(`Must do the query`)}>
+                        <Link onClick={() => HandleDeleteCard(item.cartId)}>
                           <IconButton color="primary" aria-label="upload picture" component="span">
                             <DeleteIcon />
                           </IconButton>

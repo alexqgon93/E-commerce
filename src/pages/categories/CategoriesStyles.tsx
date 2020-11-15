@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme: Theme) =>
       rowGap: '5rem',
       justifyContent: 'center',
     },
+    div: {
+      margin: 'auto',
+      width: '50%',
+      padding: '10px',
+    },
   })
 );
 

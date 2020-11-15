@@ -14,11 +14,6 @@ export default function LoginPage() {
   const [item, setItem] = useLocalStorage('token', null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = () => {
-    const userNameRegex = '^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$';
-  };
 
   const onChangeUsername = (e: { target: { value: any } }) => {
     const username = e.target.value;

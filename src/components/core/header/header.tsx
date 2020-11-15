@@ -7,14 +7,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import React from 'react';
+import React, { useContext } from 'react';
 import { AppBar } from '@material-ui/core';
 import useStyles from './headerStyles';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../context/storeContexts/cartContext';
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { itemCount } = useContext(CartContext);
   const [, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -94,7 +96,7 @@ export default function PrimarySearchAppBar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton onClick={handleClickOnCart} aria-label="cart" color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <Badge badgeContent={itemCount} color="secondary">
                 <Cart />
               </Badge>
             </IconButton>

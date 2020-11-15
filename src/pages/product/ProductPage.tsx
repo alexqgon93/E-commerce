@@ -6,20 +6,21 @@ import { getProductById } from '../../services/products.service';
 import { useParams } from 'react-router-dom';
 import useStyles from './ProductStyles';
 import { AddShoppingCart } from '@material-ui/icons';
-import { store } from '../../components/core/context/context/cartContext';
-import { formatter } from '../../utils/formatter';
+import formatter from '../../utils/formatter';
+import { CartContext } from '../../components/core/context/storeContexts/cartContext';
+
 const ProductPage = (): ReactElement => {
   const classes = useStyles();
   const { id } = useParams();
   const idNumber = parseInt(id);
-  const globalState = useContext(store);
   const { isLoading, isError, error, data } = useQuery<Products>('getAllProducts', async () =>
     getProductById(idNumber)
   );
-
-  const productInCart = (product: any) => {
-    return !!globalState.cartItems.find((item: { id: any }) => item.id === product.id);
+  const isInCart = (product: { id: any }) => {
+    return !!cartItems.find((item: { id: any }) => item.id === product.id);
   };
+
+  const { addProduct, cartItems, increase } = useContext(CartContext);
 
   if (isLoading) {
     return <CircularProgress />;
@@ -44,16 +45,16 @@ const ProductPage = (): ReactElement => {
           <div className={classes.card}>
             <h1>{data?.name}</h1>
             <h2>Precio del producto</h2>
-            <h3>{formatter(data?.price)}</h3>
+            <h3>{data && formatter(data?.price)}</h3>
             <h2>Descripcion del producto</h2>
             <p>{data?.description}</p>
-            {!productInCart(data) && (
-              <Button onClick={() => addProduct(product)} startIcon={<AddShoppingCart />}>
+            {data && !isInCart(data) && (
+              <Button startIcon={<AddShoppingCart />} onClick={() => addProduct(data)}>
                 Añadir al carrito
               </Button>
             )}
-            {productInCart(data) && (
-              <Button onClick={() => increase(product)} startIcon={<AddShoppingCart />}>
+            {data && isInCart(data) && (
+              <Button startIcon={<AddShoppingCart />} onClick={() => increase(data)}>
                 Añadir más
               </Button>
             )}

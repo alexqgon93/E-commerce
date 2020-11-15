@@ -24,6 +24,16 @@ export interface Products {
   featured: string;
   picture: string;
 }
+export interface ProductsCart {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  category: number;
+  featured: string;
+  picture: string;
+  quantity: number;
+}
 
 export interface Roles {
   id: number;

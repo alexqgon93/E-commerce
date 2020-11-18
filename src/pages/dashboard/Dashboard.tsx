@@ -31,7 +31,7 @@ const Dashboard = (): ReactElement => {
   }
 
   if (errorCategories || errorProducts) {
-    return <span>Error: {errorMessageCategories || errorMessageProducts}</span>;
+    alert(`Error: ${errorMessageCategories}`);
   }
 
   return (

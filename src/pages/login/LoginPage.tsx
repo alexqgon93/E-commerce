@@ -8,16 +8,18 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './LoginStyles';
 import Container from '@material-ui/core/Container';
 import useLocalStorage from 'react-localstorage-hook';
+import passwordValidator from 'password-validator';
+import * as EmailValidator from 'email-validator';
 
 export default function LoginPage() {
   const classes = useStyles();
   const [item, setItem] = useLocalStorage('token', null);
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onChangeUsername = (e: { target: { value: any } }) => {
-    const username = e.target.value;
-    setUsername(username);
+  const onChangeEmail = (e: { target: { value: any } }) => {
+    const email = e.target.value;
+    setEmail(email);
   };
 
   const onChangePassword = (e: { target: { value: any } }) => {
@@ -25,10 +27,39 @@ export default function LoginPage() {
     setPassword(password);
   };
 
+  const isValidPassword = () => {
+    var schema = new passwordValidator();
+    schema
+      .is()
+      .min(5)
+      .is()
+      .max(10)
+      .has()
+      .uppercase()
+      .has()
+      .lowercase()
+      .has()
+      .digits(2)
+      .has()
+      .not()
+      .spaces()
+      .is()
+      .not()
+      .oneOf(['Passw0rd', 'Password123']);
+    return schema.validate(password);
+  };
+
   const loginAuth = () => {
-    let req: any;
+    if (EmailValidator.validate(email) && isValidPassword()) {
+      alert('inputs validos');
+      // aqui lanzamos el login query
+      /*let req: any;
     if (req) {
       setItem(req.token);
+    }*/
+    } else {
+      alert('inputs no validos');
+      //aqui debemos borrar los elementos e informar al user de que no esta añadiendo correctamente la info
     }
   };
 
@@ -39,7 +70,7 @@ export default function LoginPage() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={loginAuth}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -48,8 +79,8 @@ export default function LoginPage() {
             id="username"
             label="User Name"
             name="username"
-            value={username}
-            onChange={onChangeUsername}
+            value={email}
+            onChange={onChangeEmail}
             autoComplete="email"
             autoFocus
           />

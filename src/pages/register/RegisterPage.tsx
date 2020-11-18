@@ -7,12 +7,14 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './RegisterStyles';
 import Container from '@material-ui/core/Container';
+import passwordValidator from 'password-validator';
+import * as EmailValidator from 'email-validator';
+import { isEmptyBindingElement } from 'typescript';
 
 const RegisterPage = () => {
   const classes = useStyles();
   const [name, setName] = useState('');
   const [surname, setSurName] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [dateBirth, setDateBirth] = useState('');
@@ -26,10 +28,6 @@ const RegisterPage = () => {
     setSurName(e.target.value);
   };
 
-  const onChangeUsername = (e: { target: { value: string } }) => {
-    setUsername(e.target.value);
-  };
-
   const onChangePassword = (e: { target: { value: string } }) => {
     const password = e.target.value;
     setPassword(password);
@@ -39,15 +37,38 @@ const RegisterPage = () => {
     setEmail(e.target.value);
   };
 
-  const onChangeDateBirth = (e: { target: { value: string } }) => {
-    setDateBirth(e.target.value);
+  const handleRegister = () => {
+    if (EmailValidator.validate(email) && isValidPassword()) {
+      //make the qery
+      //When response is going to be ok:
+      setSuccessful(true);
+    } else {
+      // Say to the user the info is not correct
+      //When response is going bad:
+      setSuccessful(false);
+    }
   };
 
-  const handleRegister = () => {
-    //When response is going to be ok:
-    setSuccessful(true);
-    //When response is going bad:
-    setSuccessful(false);
+  const isValidPassword = () => {
+    var schema = new passwordValidator();
+    schema
+      .is()
+      .min(5)
+      .is()
+      .max(10)
+      .has()
+      .uppercase()
+      .has()
+      .lowercase()
+      .has()
+      .digits(2)
+      .has()
+      .not()
+      .spaces()
+      .is()
+      .not()
+      .oneOf(['Passw0rd', 'Password123']);
+    return schema.validate(password);
   };
 
   return (

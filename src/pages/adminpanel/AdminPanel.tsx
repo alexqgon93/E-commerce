@@ -20,7 +20,7 @@ const HandleDeleteCard = (id: React.Key) => {
   if (errorDelete) {
     return alert(`Error: ${errorMessageDelete}`);
   }
-  return dataDelete && dataDelete?.numberCart == 1 ? navigate('/adminPanel') : alert(`Error: ${errorMessageDelete}`);
+  return dataDelete && dataDelete?.numberCart === 1 ? navigate('/adminPanel') : alert(`Error: ${errorMessageDelete}`);
 };
 
 const AdminPanel = (): ReactElement => {

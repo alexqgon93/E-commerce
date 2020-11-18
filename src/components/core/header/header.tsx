@@ -8,7 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import React, { useContext } from 'react';
-import { AppBar } from '@material-ui/core';
+import { AppBar, Button } from '@material-ui/core';
 import useStyles from './headerStyles';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/storeContexts/cartContext';
@@ -40,6 +40,11 @@ export default function PrimarySearchAppBar() {
   };
 
   const handleClickOnProfile = () => {
+    navigate('/login');
+    handleMenuClose();
+  };
+
+  const handleClickOnAdminPanel = () => {
     navigate('/adminpanel');
     handleMenuClose();
   };
@@ -61,6 +66,17 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <MenuItem onClick={handleClickOnAdminPanel}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        AdminPanel
+      </MenuItem>
       <MenuItem onClick={handleClickOnProfile}>
         <IconButton
           aria-label="account of current user"
@@ -95,6 +111,9 @@ export default function PrimarySearchAppBar() {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <Button color="inherit" onClick={handleClickOnAdminPanel}>
+              AdminPanel
+            </Button>
             <IconButton onClick={handleClickOnCart} aria-label="cart" color="inherit">
               <Badge badgeContent={itemCount} color="secondary">
                 <Cart />

@@ -1,30 +1,25 @@
 import { CircularProgress, IconButton, Link } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import React, { ReactElement } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { Carts, DeletedCart } from '../../components/types';
+import { Carts } from '../../components/types';
 import { deleteCardById, getCarts } from '../../services/cart.service';
 import styles from './AdminPanelStyles.module.scss';
 
-const HandleDeleteCard = (id: React.Key) => {
-  const navigate = useNavigate();
-  const idNumber = parseInt(id.toString());
-  const { isLoading: loadingDelete, isError: errorDelete, data: dataDelete, error: errorMessageDelete } = useQuery<
-    DeletedCart
-  >('deleteCardById', async () => deleteCardById(idNumber));
-
-  if (loadingDelete) {
-    return <CircularProgress />;
-  }
-  if (errorDelete) {
-    return alert(`Error: ${errorMessageDelete}`);
-  }
-  return dataDelete && dataDelete?.numberCart === 1 ? navigate('/adminPanel') : alert(`Error: ${errorMessageDelete}`);
-};
-
 const AdminPanel = (): ReactElement => {
+  const navigate = useNavigate();
   const { isLoading, isError, data, error } = useQuery<Array<Carts>>('getAllCategories', async () => getCarts());
+  const [postDeleteCardByID] = useMutation(deleteCardById);
+
+  const handleDeleteCard = async (id: string): Promise<void> => {
+    const deleteCard = await postDeleteCardByID(id);
+    if (deleteCard && deleteCard.status === 200) {
+      navigate('/adminPanel');
+    } else {
+      alert(`Error: ${deleteCard?.message}`);
+    }
+  };
 
   if (isLoading) {
     return <CircularProgress />;
@@ -63,7 +58,7 @@ const AdminPanel = (): ReactElement => {
                       <td className={styles.column4}>{item.productName}</td>
                       <td className={styles.column5}>{item.cartAmount}</td>
                       <td className={styles.column6}>
-                        <Link onClick={() => HandleDeleteCard(item.cartId)}>
+                        <Link onClick={() => handleDeleteCard(item.cartId)}>
                           <IconButton color="primary" aria-label="upload picture" component="span">
                             <DeleteIcon />
                           </IconButton>

@@ -31,7 +31,7 @@ const Dashboard = (): ReactElement => {
   }
 
   if (errorCategories || errorProducts) {
-    alert(`Error: ${errorMessageCategories}`);
+    alert(`Error: ${errorMessageCategories || errorMessageProducts}`);
   }
 
   return (

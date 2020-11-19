@@ -50,10 +50,18 @@ export interface Carts {
 }
 
 export interface DeletedCart {
-  numberCart: number;
+  message: string;
+  status?: number;
 }
 
 export interface Login {
   token: string;
   users: Users;
+  message: string;
+  status?: number;
+}
+
+export interface Register {
+  status?: number;
+  message: string;
 }

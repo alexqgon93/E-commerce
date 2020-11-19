@@ -2,7 +2,7 @@
     "login": {
         "getAll": "/users",
         "getUserById": "/users/{id}",
-        "register": "/users/add",
+        "register": "/users/register",
         "upateUser": "/users/update/",
         "deleteUser": "/users/delete/"
     },

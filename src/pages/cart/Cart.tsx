@@ -5,7 +5,6 @@ import { CartContext } from '../../components/core/context/storeContexts/cartCon
 import formatter from '../../utils/formatter';
 import CartItem from './CartItem';
 import useStyles from './CartStyles';
-import Checkout from '../payment/Checkout';
 
 const Cart = (): ReactElement => {
   const { total, cartItems, itemCount, clearCart } = useContext(CartContext);
@@ -14,7 +13,7 @@ const Cart = (): ReactElement => {
   const checkOut = false;
 
   const handleCheckOut = () => {
-    Checkout();
+    navigate('/checkout');
   };
 
   return (
@@ -27,7 +26,7 @@ const Cart = (): ReactElement => {
           {cartItems && cartItems.length > 0 ? (
             <CartItem cartItems={cartItems} />
           ) : (
-            <p className={classes.infoCartEmpty}>El carrito está vacio</p>
+            <h2 className={classes.infoCartEmpty}>El carrito está vacio</h2>
           )}
           {checkOut && (
             <div className={classes.checkout}>
@@ -45,10 +44,10 @@ const Cart = (): ReactElement => {
               <h3 className={classes.header3}>{formatter(total)}</h3>
               <hr className={classes.jumpLine} />
               <div className={classes.buttons}>
-                <Button variant="contained" color="primary" onClick={handleCheckOut}>
+                <Button variant="contained" onClick={handleCheckOut}>
                   Finalizar Compra
                 </Button>
-                <Button variant="outlined" onClick={clearCart}>
+                <Button variant="outlined" color="secondary" onClick={clearCart}>
                   Borrar Carrito
                 </Button>
               </div>

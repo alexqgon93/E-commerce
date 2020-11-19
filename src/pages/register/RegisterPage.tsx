@@ -9,9 +9,12 @@ import useStyles from './RegisterStyles';
 import Container from '@material-ui/core/Container';
 import passwordValidator from 'password-validator';
 import * as EmailValidator from 'email-validator';
-import { isEmptyBindingElement } from 'typescript';
+import { useMutation } from 'react-query';
+import { register } from '../../services/auth.service';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const classes = useStyles();
   const [name, setName] = useState('');
   const [surname, setSurName] = useState('');
@@ -19,6 +22,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [dateBirth, setDateBirth] = useState('');
   const [successful, setSuccessful] = useState(false);
+  const [postRegister] = useMutation(register);
 
   const onChangeName = (e: { target: { value: string } }) => {
     setName(e.target.value);
@@ -29,23 +33,33 @@ const RegisterPage = () => {
   };
 
   const onChangePassword = (e: { target: { value: string } }) => {
-    const password = e.target.value;
-    setPassword(password);
+    setPassword(e.target.value);
   };
 
   const onChangeEmail = (e: { target: { value: string } }) => {
     setEmail(e.target.value);
   };
 
-  const handleRegister = () => {
+  const handleRegister = async (): Promise<void> => {
+    console.log(dateBirth);
     if (EmailValidator.validate(email) && isValidPassword()) {
-      //make the qery
-      //When response is going to be ok:
-      setSuccessful(true);
+      try {
+        const register = await postRegister({ name, surname, password, email, dateBirth });
+        if (register && register.status === 200) {
+          setSuccessful(true);
+          alert(`${register?.message}`);
+          navigate('/login');
+        } else {
+          setSuccessful(false);
+          alert(`Error: ${register?.message}`);
+        }
+      } catch (error) {
+        alert(error);
+      }
     } else {
-      // Say to the user the info is not correct
-      //When response is going bad:
-      setSuccessful(false);
+      alert(
+        'La información introducida no es correcta, recuerda que ha de ser un email valido y la password ha de ser de entre 5 y 10 digitos, con mayusculas y minusculas, que no tenga espacios'
+      );
     }
   };
 
@@ -139,8 +153,11 @@ const RegisterPage = () => {
                 id="date"
                 label="Birthday"
                 type="date"
+                required
                 defaultValue="-----"
                 className={classes.datePicker}
+                value={dateBirth}
+                onChange={(newValue) => setDateBirth(newValue?.target.value)}
                 InputLabelProps={{
                   shrink: true,
                 }}

@@ -11,10 +11,12 @@ import MainLayout from './components/core/mainlayout/MainLayout';
 import { ReactQueryConfigProvider } from 'react-query';
 import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
+import Checkout from './pages/checkout/Checkout';
 
 function App() {
   const reactQueryConfig = {
     queries: {
+      cacheTime: 0,
       retry: false,
     },
   };
@@ -29,6 +31,7 @@ function App() {
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/adminpanel" element={<AdminPanel />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Route>
       </Routes>
     </ReactQueryConfigProvider>

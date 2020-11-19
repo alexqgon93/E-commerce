@@ -10,12 +10,15 @@ import Container from '@material-ui/core/Container';
 import useLocalStorage from 'react-localstorage-hook';
 import passwordValidator from 'password-validator';
 import * as EmailValidator from 'email-validator';
+import { useMutation } from 'react-query';
+import { login } from '../../services/auth.service';
 
 export default function LoginPage() {
   const classes = useStyles();
   const [item, setItem] = useLocalStorage('token', null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [postLogin] = useMutation(login);
 
   const onChangeEmail = (e: { target: { value: any } }) => {
     const email = e.target.value;
@@ -49,17 +52,21 @@ export default function LoginPage() {
     return schema.validate(password);
   };
 
-  const loginAuth = () => {
+  const loginAuth = async (): Promise<void> => {
     if (EmailValidator.validate(email) && isValidPassword()) {
-      alert('inputs validos');
-      // aqui lanzamos el login query
-      /*let req: any;
-    if (req) {
-      setItem(req.token);
-    }*/
+      try {
+        const login = await postLogin({ email, password });
+        if (login && login.status === 200) {
+          //setToken(login.token)
+          //setUser(login.user)
+        } else {
+          alert(`Error: ${login?.message}`);
+        }
+      } catch (error) {
+        alert(error);
+      }
     } else {
       alert('inputs no validos');
-      //aqui debemos borrar los elementos e informar al user de que no esta añadiendo correctamente la info
     }
   };
 

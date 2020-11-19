@@ -1,5 +1,5 @@
 import useLocalStorage from 'react-localstorage-hook';
-import { Login } from '../components/types';
+import { Login, Register } from '../components/types';
 import { hostBaseUrl } from '../utils/http/http';
 import * as ApiService from './api.service';
 
@@ -9,21 +9,20 @@ const logout = () => {
   localStorage.clear();
 };
 
-const login = (userData: { username: string; password: string }): Promise<Login> => {
+export async function login(userData: { email: string; password: string }): Promise<Login> {
   const url = new URL(hostBaseUrl + endpoints.login);
   return ApiService.post<Login>(url, JSON.stringify(userData));
-};
+}
 
-const register = (userData: {
+export async function register(userData: {
   name: string;
   surname: string;
-  username: string;
   password: string;
   email: string;
-  date_birth: string;
-}) => {
+  dateBirth: string;
+}): Promise<Register> {
   const url = new URL(hostBaseUrl + endpoints.login.register);
-  return ApiService.post(url, JSON.stringify(userData));
-};
+  return ApiService.post<Register>(url, JSON.stringify(userData));
+}
 
-export default { logout, login, register };
+export default { logout, register };

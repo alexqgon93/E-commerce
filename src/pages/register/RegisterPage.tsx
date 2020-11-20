@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -7,82 +7,35 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './RegisterStyles';
 import Container from '@material-ui/core/Container';
-import passwordValidator from 'password-validator';
-import * as EmailValidator from 'email-validator';
 import { useMutation } from 'react-query';
-import { register } from '../../services/auth.service';
+import { register as registerService } from '../../services/auth.service';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { registerSchema } from './register.schema';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const RegisterPage = () => {
+  const { register, handleSubmit, errors } = useForm({ resolver: yupResolver(registerSchema) });
   const navigate = useNavigate();
   const classes = useStyles();
-  const [name, setName] = useState('');
-  const [surname, setSurName] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [dateBirth, setDateBirth] = useState('');
-  const [successful, setSuccessful] = useState(false);
-  const [postRegister] = useMutation(register);
+  const [postRegister] = useMutation(registerService);
 
-  const onChangeName = (e: { target: { value: string } }) => {
-    setName(e.target.value);
-  };
-
-  const onChangeSurName = (e: { target: { value: string } }) => {
-    setSurName(e.target.value);
-  };
-
-  const onChangePassword = (e: { target: { value: string } }) => {
-    setPassword(e.target.value);
-  };
-
-  const onChangeEmail = (e: { target: { value: string } }) => {
-    setEmail(e.target.value);
-  };
-
-  const handleRegister = async (): Promise<void> => {
-    console.log(dateBirth);
-    if (EmailValidator.validate(email) && isValidPassword()) {
-      try {
-        const register = await postRegister({ name, surname, password, email, dateBirth });
-        if (register && register.status === 200) {
-          setSuccessful(true);
-          alert(`${register?.message}`);
-          navigate('/login');
-        } else {
-          setSuccessful(false);
-          alert(`Error: ${register?.message}`);
-        }
-      } catch (error) {
-        alert(error);
+  const handleRegister = async (data: any): Promise<void> => {
+    try {
+      const registerData = await postRegister({
+        name: data.firstName,
+        surname: data.surName,
+        password: data.password,
+        email: data.email,
+        dateBirth: data.date,
+      });
+      if (registerData) {
+        alert(`${registerData?.message}`);
+        navigate('/login');
       }
-    } else {
-      alert(
-        'La información introducida no es correcta, recuerda que ha de ser un email valido y la password ha de ser de entre 5 y 10 digitos, con mayusculas y minusculas, que no tenga espacios'
-      );
+    } catch (error) {
+      alert(error);
     }
-  };
-
-  const isValidPassword = () => {
-    var schema = new passwordValidator();
-    schema
-      .is()
-      .min(5)
-      .is()
-      .max(10)
-      .has()
-      .uppercase()
-      .has()
-      .lowercase()
-      .has()
-      .digits(2)
-      .has()
-      .not()
-      .spaces()
-      .is()
-      .not()
-      .oneOf(['Passw0rd', 'Password123']);
-    return schema.validate(password);
   };
 
   return (
@@ -92,7 +45,7 @@ const RegisterPage = () => {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
-        <form className={classes.form} onSubmit={handleRegister}>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(handleRegister)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -101,10 +54,11 @@ const RegisterPage = () => {
                 variant="outlined"
                 required
                 fullWidth
+                error={errors.firstName ? true : false}
+                helperText={errors.firstName?.message}
                 id="firstName"
                 label="First Name"
-                value={name}
-                onChange={onChangeName}
+                inputRef={register}
                 autoFocus
               />
             </Grid>
@@ -114,10 +68,11 @@ const RegisterPage = () => {
                 required
                 fullWidth
                 id="surName"
+                error={errors.surName ? true : false}
+                helperText={errors.surName?.message}
                 label="Surname"
                 name="surName"
-                value={surname}
-                onChange={onChangeSurName}
+                inputRef={register}
                 autoComplete="lname"
               />
             </Grid>
@@ -128,9 +83,10 @@ const RegisterPage = () => {
                 fullWidth
                 id="email"
                 label="Email Address"
+                error={errors.email ? true : false}
+                helperText={errors.email?.message}
                 name="email"
-                value={email}
-                onChange={onChangeEmail}
+                inputRef={register}
                 autoComplete="email"
               />
             </Grid>
@@ -139,12 +95,13 @@ const RegisterPage = () => {
                 variant="outlined"
                 required
                 fullWidth
+                error={errors.password ? true : false}
+                helperText={errors.password?.message}
                 name="password"
                 label="Password"
                 type="password"
                 id="password"
-                value={password}
-                onChange={onChangePassword}
+                inputRef={register}
                 autoComplete="current-password"
               />
             </Grid>
@@ -153,11 +110,12 @@ const RegisterPage = () => {
                 id="date"
                 label="Birthday"
                 type="date"
+                error={errors.date ? true : false}
+                helperText={errors.date?.message}
+                name="date"
                 required
-                defaultValue="-----"
                 className={classes.datePicker}
-                value={dateBirth}
-                onChange={(newValue) => setDateBirth(newValue?.target.value)}
+                inputRef={register}
                 InputLabelProps={{
                   shrink: true,
                 }}

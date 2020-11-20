@@ -1,6 +1,7 @@
 {
     "login": {
         "getAll": "/users",
+        "login": "/users/login",
         "getUserById": "/users/{id}",
         "register": "/users/register",
         "upateUser": "/users/update/",

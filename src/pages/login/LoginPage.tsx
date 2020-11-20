@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,65 +8,32 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './LoginStyles';
 import Container from '@material-ui/core/Container';
 import useLocalStorage from 'react-localstorage-hook';
-import passwordValidator from 'password-validator';
-import * as EmailValidator from 'email-validator';
 import { useMutation } from 'react-query';
 import { login } from '../../services/auth.service';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { loginSchema } from './login.schema';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const { register, handleSubmit, errors } = useForm({ resolver: yupResolver(loginSchema) });
   const [item, setItem] = useLocalStorage('token', null);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [postLogin] = useMutation(login);
 
-  const onChangeEmail = (e: { target: { value: any } }) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
-
-  const onChangePassword = (e: { target: { value: any } }) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
-
-  const isValidPassword = () => {
-    var schema = new passwordValidator();
-    schema
-      .is()
-      .min(5)
-      .is()
-      .max(10)
-      .has()
-      .uppercase()
-      .has()
-      .lowercase()
-      .has()
-      .digits(2)
-      .has()
-      .not()
-      .spaces()
-      .is()
-      .not()
-      .oneOf(['Passw0rd', 'Password123']);
-    return schema.validate(password);
-  };
-
-  const loginAuth = async (): Promise<void> => {
-    if (EmailValidator.validate(email) && isValidPassword()) {
-      try {
-        const login = await postLogin({ email, password });
-        if (login && login.status === 200) {
-          //setToken(login.token)
-          //setUser(login.user)
-        } else {
-          alert(`Error: ${login?.message}`);
-        }
-      } catch (error) {
-        alert(error);
+  const loginAuth = async (data: any): Promise<void> => {
+    try {
+      const loginData = await postLogin({ email: data.email, password: data.password });
+      console.log(loginData);
+      if (loginData) {
+        setItem(loginData.token);
+        //setUser(login.user)
+        alert(loginData);
+        navigate('/');
       }
-    } else {
-      alert('inputs no validos');
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -75,19 +42,20 @@ export default function LoginPage() {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Sign in
+          Log In
         </Typography>
-        <form className={classes.form} onSubmit={loginAuth}>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(loginAuth)}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="username"
-            label="User Name"
-            name="username"
-            value={email}
-            onChange={onChangeEmail}
+            id="email"
+            label="Email"
+            inputRef={register}
+            error={errors.email ? true : false}
+            helperText={errors.email?.message}
+            name="email"
             autoComplete="email"
             autoFocus
           />
@@ -97,20 +65,21 @@ export default function LoginPage() {
             required
             fullWidth
             name="password"
+            inputRef={register}
+            error={errors.password ? true : false}
+            helperText={errors.password?.message}
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password}
-            onChange={onChangePassword}
           />
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-            Sign In
+            Log In
           </Button>
           <Grid container>
             <Grid item>
               <Link href="/register" variant="body2">
-                {"Don't have an account? Register now"}
+                {'No tienes aun una cuenta? Registrate ahora'}
               </Link>
             </Grid>
           </Grid>

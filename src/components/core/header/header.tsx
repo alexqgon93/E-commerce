@@ -12,11 +12,13 @@ import { AppBar, Button } from '@material-ui/core';
 import useStyles from './headerStyles';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/storeContexts/cartContext';
+import { UserContext } from '../context/userContext/userContext';
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { itemCount } = useContext(CartContext);
+  const { userLogged, user, logout } = useContext(UserContext);
   const [, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -33,10 +35,6 @@ export default function PrimarySearchAppBar() {
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const handelClickOnHome = () => {
-    navigate('/');
   };
 
   const handleClickOnProfile = () => {
@@ -66,28 +64,46 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleClickOnAdminPanel}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        AdminPanel
-      </MenuItem>
-      <MenuItem onClick={handleClickOnProfile}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        Profile
-      </MenuItem>
+      {userLogged &&
+        user.isAuth(
+          <MenuItem onClick={handleClickOnAdminPanel}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            AdminPanel
+          </MenuItem>
+        )}
+      {!userLogged && (
+        <MenuItem onClick={handleClickOnProfile}>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          Log In
+        </MenuItem>
+      )}
+      {userLogged && (
+        <MenuItem onClick={() => logout}>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          Logout
+        </MenuItem>
+      )}
       <MenuItem onClick={handleClickOnCart}>
         <IconButton
           aria-label="account of current user"
@@ -95,7 +111,9 @@ export default function PrimarySearchAppBar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <Cart />
+          <Badge badgeContent={itemCount} color="secondary">
+            <Cart />
+          </Badge>
         </IconButton>
         Cart
       </MenuItem>
@@ -107,28 +125,38 @@ export default function PrimarySearchAppBar() {
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
-            <div onClick={handelClickOnHome}>Motorcycle E-commerce</div>
+            <div onClick={() => navigate('/')}>Motorcycle E-commerce</div>
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Button color="inherit" onClick={handleClickOnAdminPanel}>
-              AdminPanel
-            </Button>
+            {userLogged &&
+              user.isAuth(
+                <Button color="inherit" onClick={handleClickOnAdminPanel}>
+                  AdminPanel
+                </Button>
+              )}
+            {userLogged && (
+              <Button color="inherit" onClick={() => logout()}>
+                Logout
+              </Button>
+            )}
             <IconButton onClick={handleClickOnCart} aria-label="cart" color="inherit">
               <Badge badgeContent={itemCount} color="secondary">
                 <Cart />
               </Badge>
             </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleClickOnProfile}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            {!userLogged && (
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleClickOnProfile}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            )}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

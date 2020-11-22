@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block',
       margin: '1.5rem',
     },
+    alertParraf: { color: 'red' },
     productParraf: {
       marginBottom: '.25rem',
     },

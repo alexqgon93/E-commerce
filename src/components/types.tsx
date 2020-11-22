@@ -55,8 +55,7 @@ export interface DeletedCart {
 }
 
 export interface Login {
-  token: string;
-  users: Users;
+  jwt: string;
   message: string;
   status?: number;
 }
@@ -64,4 +63,17 @@ export interface Login {
 export interface Register {
   status?: number;
   message: string;
+}
+
+export interface jwtType {
+  iat: number;
+  exp: number;
+  iss: string;
+  data: {
+    id: string;
+    firstname: string;
+    lastname: string;
+    isAuth: string;
+    email: string;
+  };
 }

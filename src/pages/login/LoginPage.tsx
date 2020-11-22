@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './LoginStyles';
 import Container from '@material-ui/core/Container';
-import useLocalStorage from 'react-localstorage-hook';
 import { useMutation } from 'react-query';
 import { login } from '../../services/auth.service';
 import { useForm } from 'react-hook-form';
@@ -19,17 +18,13 @@ export default function LoginPage() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { register, handleSubmit, errors } = useForm({ resolver: yupResolver(loginSchema) });
-  const [item, setItem] = useLocalStorage('token', null);
   const [postLogin] = useMutation(login);
 
   const loginAuth = async (data: any): Promise<void> => {
     try {
       const loginData = await postLogin({ email: data.email, password: data.password });
-      console.log(loginData);
       if (loginData) {
-        setItem(loginData.token);
-        //setUser(login.user)
-        alert(loginData);
+        alert(loginData.message);
         navigate('/');
       }
     } catch (error) {

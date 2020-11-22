@@ -2,6 +2,7 @@ import { Button, Card } from '@material-ui/core';
 import React, { ReactElement, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../components/core/context/storeContexts/cartContext';
+import { UserContext } from '../../components/core/context/userContext/userContext';
 import formatter from '../../utils/formatter';
 import CartItem from './CartItem';
 import useStyles from './CartStyles';
@@ -10,6 +11,7 @@ const Cart = (): ReactElement => {
   const { total, cartItems, itemCount, clearCart } = useContext(CartContext);
   const classes = useStyles();
   const navigate = useNavigate();
+  const { userLogged } = useContext(UserContext);
   const checkOut = false;
 
   const handleCheckOut = () => {
@@ -44,10 +46,17 @@ const Cart = (): ReactElement => {
               <h3 className={classes.header3}>{formatter(total)}</h3>
               <hr className={classes.jumpLine} />
               <div className={classes.buttons}>
-                <Button variant="contained" onClick={handleCheckOut}>
-                  Finalizar Compra
-                </Button>
-                <Button variant="outlined" color="secondary" onClick={clearCart}>
+                {!userLogged && (
+                  <p className={classes.alertParraf}>
+                    No te has identificado en el sistema, para poder comprar articulos en esta tienda
+                  </p>
+                )}
+                {userLogged && (
+                  <Button variant="contained" onClick={handleCheckOut} disabled={!userLogged}>
+                    Finalizar Compra
+                  </Button>
+                )}
+                <Button variant="text" color="default" onClick={clearCart}>
                   Borrar Carrito
                 </Button>
               </div>

@@ -12,13 +12,13 @@ import { AppBar, Button } from '@material-ui/core';
 import useStyles from './headerStyles';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/storeContexts/cartContext';
-import { UserContext } from '../context/userContext/userContext';
+import { jwtType } from '../../types';
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { itemCount } = useContext(CartContext);
-  const { userLogged, user, logout } = useContext(UserContext);
+  const user: jwtType = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
   const [, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -64,8 +64,8 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {userLogged &&
-        user.isAuth(
+      {user &&
+        user.data.isAuth(
           <MenuItem onClick={handleClickOnAdminPanel}>
             <IconButton
               aria-label="account of current user"
@@ -78,7 +78,7 @@ export default function PrimarySearchAppBar() {
             AdminPanel
           </MenuItem>
         )}
-      {!userLogged && (
+      {!user && (
         <MenuItem onClick={handleClickOnProfile}>
           <IconButton
             aria-label="account of current user"
@@ -91,8 +91,8 @@ export default function PrimarySearchAppBar() {
           Log In
         </MenuItem>
       )}
-      {userLogged && (
-        <MenuItem onClick={() => logout}>
+      {user && (
+        <MenuItem onClick={() => localStorage.removeItem('user')}>
           <IconButton
             aria-label="account of current user"
             aria-controls="primary-search-account-menu"

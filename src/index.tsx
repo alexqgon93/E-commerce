@@ -10,19 +10,16 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme/theme';
 import { CssBaseline } from '@material-ui/core';
 import CartContextProvider from './components/core/context/storeContexts/cartContext';
-import UserContextProvider from './components/core/context/userContext/userContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <UserContextProvider>
-        <CartContextProvider>
-          <BrowserRouter>
-            <CssBaseline />
-            <App />
-          </BrowserRouter>
-        </CartContextProvider>
-      </UserContextProvider>
+      <CartContextProvider>
+        <BrowserRouter>
+          <CssBaseline />
+          <App />
+        </BrowserRouter>
+      </CartContextProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

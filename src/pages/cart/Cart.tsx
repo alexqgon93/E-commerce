@@ -45,13 +45,13 @@ const Cart = (): ReactElement => {
               <h3 className={classes.header3}>{formatter(total)}</h3>
               <hr className={classes.jumpLine} />
               <div className={classes.buttons}>
-                {!userLogged && (
+                {!user && (
                   <p className={classes.alertParraf}>
                     No te has identificado en el sistema, para poder comprar articulos en esta tienda
                   </p>
                 )}
-                {userLogged && (
-                  <Button variant="contained" onClick={handleCheckOut} disabled={!userLogged}>
+                {user && (
+                  <Button variant="contained" onClick={handleCheckOut} disabled={!user}>
                     Finalizar Compra
                   </Button>
                 )}

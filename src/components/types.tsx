@@ -47,9 +47,15 @@ export interface Carts {
   userName: string;
   userSurname: string;
   productName: string;
+  productQuantity: string;
 }
 
 export interface DeletedCart {
+  message: string;
+  status?: number;
+}
+
+export interface AddedCart {
   message: string;
   status?: number;
 }

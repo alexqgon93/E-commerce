@@ -11,29 +11,29 @@ const AddressForm = (): ReactElement => {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <TextField required id="firstName" name="firstName" label="Nombre" fullWidth autoComplete="given-name" />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField required id="lastName" name="lastName" label="Apellido" fullWidth autoComplete="family-name" />
-        </Grid>
-        <Grid item xs={12}>
           <TextField
+            autoComplete="fname"
+            name="firstName"
             required
-            id="address1"
-            name="address1"
-            label="Dirección de envío"
             fullWidth
-            autoComplete="shipping address-line1"
+            id="firstName"
+            label="First Name"
+            autoFocus
           />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField required fullWidth id="surName" label="Surname" name="surName" autoComplete="lname" />
+        </Grid>
         <Grid item xs={12}>
           <TextField
+            margin="normal"
             required
-            id="email"
-            name="email"
-            label="Dirección de correo electrónico"
             fullWidth
-            autoComplete="shipping address-line2"
+            id="email"
+            label="Email"
+            name="email"
+            autoComplete="email"
+            autoFocus
           />
         </Grid>
       </Grid>

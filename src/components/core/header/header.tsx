@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AppBar, Button } from '@material-ui/core';
 import useStyles from './headerStyles';
 import { useNavigate } from 'react-router-dom';
@@ -18,11 +18,15 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const navigate = useNavigate();
   const { itemCount } = useContext(CartContext);
-  const user: jwtType = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
+  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
   const [, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  useEffect(() => {
+    console.log(user);
+  });
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -40,6 +44,12 @@ export default function PrimarySearchAppBar() {
   const handleClickOnProfile = () => {
     navigate('/login');
     handleMenuClose();
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('user');
+    navigate('/');
   };
 
   const handleClickOnAdminPanel = () => {
@@ -64,20 +74,19 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {user &&
-        user.data.isAuth(
-          <MenuItem onClick={handleClickOnAdminPanel}>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            AdminPanel
-          </MenuItem>
-        )}
+      {user && user.isAuth === '1' && (
+        <MenuItem onClick={handleClickOnAdminPanel}>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          AdminPanel
+        </MenuItem>
+      )}
       {!user && (
         <MenuItem onClick={handleClickOnProfile}>
           <IconButton
@@ -129,14 +138,13 @@ export default function PrimarySearchAppBar() {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            {userLogged &&
-              user.isAuth(
-                <Button color="inherit" onClick={handleClickOnAdminPanel}>
-                  AdminPanel
-                </Button>
-              )}
-            {userLogged && (
-              <Button color="inherit" onClick={() => logout()}>
+            {user && user.isAuth === '1' && (
+              <Button color="inherit" onClick={handleClickOnAdminPanel}>
+                AdminPanel
+              </Button>
+            )}
+            {user && (
+              <Button color="inherit" onClick={() => handleLogOut()}>
                 Logout
               </Button>
             )}
@@ -145,7 +153,7 @@ export default function PrimarySearchAppBar() {
                 <Cart />
               </Badge>
             </IconButton>
-            {!userLogged && (
+            {!user && (
               <IconButton
                 edge="end"
                 aria-label="account of current user"

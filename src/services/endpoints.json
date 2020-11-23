@@ -3,9 +3,7 @@
         "getAll": "/users",
         "login": "/users/login",
         "getUserById": "/users/{id}",
-        "register": "/users/register",
-        "upateUser": "/users/update/",
-        "deleteUser": "/users/delete/"
+        "register": "/users/register"
     },
     "categories": {
         "getAll": "/categories",
@@ -20,10 +18,7 @@
     "cart": {
         "getAll": "/cart",
         "getCartById": "/cart/{id}",
-        "deleteCardById": "/cart/delete/"
-    },
-    "roles": {
-        "getRoles": "/roles",
-        "getRoleById": "/roles/{id}"
+        "deleteCardById": "/cart/delete/",
+        "addCart": "/cart/add"
     }
 }

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
@@ -12,17 +12,6 @@ import useStyles from './CheckOutStyles';
 
 const steps = ['Dirección de Envío', 'Revise su Pedido'];
 
-function getStepContent(step: number) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <Review />;
-    default:
-      throw new Error('Paso desconocido');
-  }
-}
-
 const Checkout = (): ReactElement => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -33,6 +22,17 @@ const Checkout = (): ReactElement => {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+  };
+
+  const getStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return <AddressForm />;
+      case 1:
+        return <Review />;
+      default:
+        throw new Error('Paso desconocido');
+    }
   };
 
   return (

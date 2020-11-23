@@ -42,7 +42,7 @@ const AdminPanel = (): ReactElement => {
                   <th className={styles.column2}>Order ID</th>
                   <th className={styles.column3}>Información usuario</th>
                   <th className={styles.column4}>Nombre Productos</th>
-                  <th className={styles.column5}>Precio</th>
+                  <th className={styles.column5}>Numero de productos</th>
                   <th className={styles.column6}>Delete Action</th>
                 </tr>
               </thead>
@@ -56,7 +56,7 @@ const AdminPanel = (): ReactElement => {
                         {item.userName} {item.userSurname}
                       </td>
                       <td className={styles.column4}>{item.productName}</td>
-                      <td className={styles.column5}>{item.cartAmount}</td>
+                      <td className={styles.column5}>{item.productQuantity}</td>
                       <td className={styles.column6}>
                         <Link onClick={() => handleDeleteCard(item.cartId)}>
                           <IconButton color="primary" aria-label="upload picture" component="span">

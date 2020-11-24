@@ -17,8 +17,8 @@ export function deleteCardById(id: string): Promise<Types.DeletedCart> {
 export function postNewCart(cartData: {
   userId: string;
   date: string;
-  amout: number;
-  products: string[];
+  amount: number;
+  products: any[];
 }): Promise<AddedCart> {
   const url = new URL(hostBaseUrl + endpoints.cart.addCart);
   const headers = { ...jsonContentType, Authorization: 'Bearer ' + localStorage.getItem('id_token') };

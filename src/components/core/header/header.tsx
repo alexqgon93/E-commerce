@@ -7,12 +7,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { AppBar, Button } from '@material-ui/core';
 import useStyles from './headerStyles';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/storeContexts/cartContext';
-import { jwtType } from '../../types';
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
@@ -21,12 +20,7 @@ export default function PrimarySearchAppBar() {
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
   const [, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
-
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  useEffect(() => {
-    console.log(user);
-  });
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);

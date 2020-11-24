@@ -12,6 +12,7 @@ import { ProductsCart } from '../../components/types';
 const Review = (): ReactElement => {
   const classes = useStyles();
   const { total, cartItems } = useContext(CartContext);
+  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
 
   return (
     <React.Fragment>
@@ -40,8 +41,8 @@ const Review = (): ReactElement => {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Dirección de envío
           </Typography>
-          <Typography gutterBottom>Dirección rellenar con el del user</Typography>
-          <Typography gutterBottom>Emial con el que ha rellenado</Typography>
+          <Typography gutterBottom>{user.firstname + ' ' + user.lastname}</Typography>
+          <Typography gutterBottom>{user.email}</Typography>
         </Grid>
       </Grid>
     </React.Fragment>

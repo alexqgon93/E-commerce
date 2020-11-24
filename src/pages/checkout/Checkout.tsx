@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react';
+import React, { ReactElement, useContext, useState } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -14,9 +14,10 @@ const Checkout = (): ReactElement => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [activeStep] = React.useState(0);
-  const { total, cartItems } = useContext(CartContext);
+  const { total, cartItems, clearCart } = useContext(CartContext);
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
   const [postCreateCart] = useMutation(postNewCart);
+  const [payment, setPayment] = useState(false);
 
   const getStepContent = (step: number) => {
     switch (step) {
@@ -26,6 +27,9 @@ const Checkout = (): ReactElement => {
         throw new Error('Paso desconocido');
     }
   };
+  const handlePayment = () => {
+    setPayment(true);
+  };
   const dateFormat = () => {
     function pad(s: string | number) {
       return s < 10 ? '0' + s : s;
@@ -34,6 +38,9 @@ const Checkout = (): ReactElement => {
     return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
   };
 
+  const handleContinue = () => {
+    navigate('/');
+  };
   const handleSubmit = async () => {
     const arrayProducts = cartItems.map((data: any) => {
       return {
@@ -49,10 +56,10 @@ const Checkout = (): ReactElement => {
         products: arrayProducts,
       });
       if (createCart) {
-        if (createCart.status === 201) {
-          alert(createCart.message);
-          localStorage.removeItem('cart');
-          navigate('/');
+        console.log(createCart);
+        if (createCart.message === 'Carrito creado correctamente.') {
+          handlePayment();
+          clearCart();
         } else {
           alert(createCart.message);
           localStorage.removeItem('id_token');
@@ -70,17 +77,36 @@ const Checkout = (): ReactElement => {
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Formalización del pedido
-          </Typography>
-
+          {!payment && (
+            <Typography component="h1" variant="h4" align="center">
+              Formalización del pedido
+            </Typography>
+          )}
           <React.Fragment>
             <React.Fragment>
-              {getStepContent(activeStep)}
+              {!payment ? (
+                getStepContent(activeStep)
+              ) : (
+                <React.Fragment>
+                  <Typography variant="h5" gutterBottom>
+                    Su pedido se ha creado correctamente.
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    Le agradecemos la confianza que deposita en nosotros y pronto nos pondremos en contacto con usted, a
+                    través de su correo electrónico para enviarle la información de su pedido.
+                  </Typography>
+                </React.Fragment>
+              )}
               <div className={classes.buttons}>
-                <Button variant="contained" color="secondary" onClick={handleSubmit} className={classes.button}>
-                  Realizar pedido
-                </Button>
+                {!payment ? (
+                  <Button variant="contained" color="secondary" onClick={handleSubmit} className={classes.button}>
+                    Realizar pedido
+                  </Button>
+                ) : (
+                  <Button variant="contained" color="secondary" onClick={handleContinue} className={classes.button}>
+                    Continuar
+                  </Button>
+                )}
               </div>
             </React.Fragment>
           </React.Fragment>

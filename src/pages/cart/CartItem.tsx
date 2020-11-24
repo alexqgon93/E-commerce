@@ -12,8 +12,8 @@ const CartItem = (props: { cartItems: Array<ProductsCart> }) => {
   return (
     <div className={classes.outterContainer}>
       <Card>
-        {props.cartItems.map((product) => (
-          <div>
+        {props.cartItems.map((product, i) => (
+          <div key={i}>
             <div className={classes.imageContainer}>
               <img className={classes.image} alt={product.name} src={'http://local.api.localhost' + product.picture} />
             </div>

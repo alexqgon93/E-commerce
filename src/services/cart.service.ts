@@ -14,7 +14,7 @@ export function deleteCardById(id: string): Promise<Types.DeletedCart> {
   return ApiService.deleteForm<Types.DeletedCart>(url);
 }
 
-export function postNewCart(cartData: {
+export async function postNewCart(cartData: {
   userId: string;
   date: string;
   amount: number;
@@ -22,7 +22,9 @@ export function postNewCart(cartData: {
 }): Promise<AddedCart> {
   const url = new URL(hostBaseUrl + endpoints.cart.addCart);
   const headers = { ...jsonContentType, Authorization: 'Bearer ' + localStorage.getItem('id_token') };
-  return ApiService.post<AddedCart>(url, JSON.stringify(cartData), headers);
+  return ApiService.post<AddedCart>(url, JSON.stringify(cartData), headers).then((response) => {
+    return response;
+  });
 }
 
 export const bearerContentType = {

@@ -24,8 +24,11 @@ export default function LoginPage() {
     try {
       const loginData = await postLogin({ email: data.email, password: data.password });
       if (loginData) {
-        alert(loginData.message);
-        navigate('/');
+        if (loginData.message === 'Login hecho correctamente') {
+          navigate('/');
+        } else {
+          alert(loginData?.message);
+        }
       }
     } catch (error) {
       alert(error);

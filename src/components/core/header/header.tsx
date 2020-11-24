@@ -8,7 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import React, { useContext } from 'react';
-import { AppBar, Button } from '@material-ui/core';
+import { AppBar } from '@material-ui/core';
 import useStyles from './headerStyles';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/storeContexts/cartContext';
@@ -16,7 +16,7 @@ import { CartContext } from '../context/storeContexts/cartContext';
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const { itemCount } = useContext(CartContext);
+  const { itemCount, clearCart } = useContext(CartContext);
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
   const [, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -43,6 +43,7 @@ export default function PrimarySearchAppBar() {
   const handleLogOut = () => {
     localStorage.removeItem('id_token');
     localStorage.removeItem('user');
+    clearCart();
     navigate('/');
   };
 
@@ -127,20 +128,25 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            <div onClick={() => navigate('/')}>Motorcycle E-commerce</div>
-          </Typography>
+          <IconButton onClick={() => navigate('/')} aria-label="cart" color="inherit">
+            <div>Motorcycle E-commerce</div>
+          </IconButton>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            {user && (
+              <Typography className={classes.title} variant="h6" noWrap>
+                Bienvenido {user.firstname}
+              </Typography>
+            )}
             {user && user.isAuth === '1' && (
-              <Button color="inherit" onClick={handleClickOnAdminPanel}>
-                AdminPanel
-              </Button>
+              <IconButton onClick={handleClickOnAdminPanel} aria-label="cart" color="inherit">
+                <div>AdminPanel</div>
+              </IconButton>
             )}
             {user && (
-              <Button color="inherit" onClick={() => handleLogOut()}>
-                Logout
-              </Button>
+              <IconButton onClick={() => handleLogOut()} aria-label="cart" color="inherit">
+                <div>Logout</div>
+              </IconButton>
             )}
             <IconButton onClick={handleClickOnCart} aria-label="cart" color="inherit">
               <Badge badgeContent={itemCount} color="secondary">

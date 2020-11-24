@@ -12,7 +12,7 @@ export async function login(userData: { email: string; password: string }): Prom
   const url = new URL(hostBaseUrl + endpoints.login.login);
   const headers = { ...jsonContentType };
   return ApiService.post<Login>(url, JSON.stringify(userData), headers).then((response) => {
-    if (response) {
+    if (response.message === 'Login hecho correctamente') {
       localStorage.setItem('id_token', response.jwt);
       var jwt = require('jsonwebtoken');
       const decode = jwt.decode(response.jwt);
